@@ -2,6 +2,7 @@ import { useState, ChangeEvent, FormEvent } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { useFormik, FormikHelpers } from 'formik'
 import { schema } from '../rules'
+import axios from 'axios'
 
 type CarFormValues = {
     username: string
@@ -13,7 +14,17 @@ type CarFormValues = {
     // photo: File
 }
 
-const onSubmit = (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
+const onSubmit = async (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
+    try {
+        console.log('values: ', values)
+        const response = await axios.post('http://localhost:3000/cars', values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    } catch (err) {
+        console.log('submit error: ', err)
+    }
     console.log('Info sent')
     actions.resetForm()
 }
@@ -132,7 +143,11 @@ const CarForm = () => {
                             required
                         />
                     </label>
-                    <button disabled={isSubmitting} className='mt-3 btn-danger' type='submit'>
+                    <button
+                        disabled={isSubmitting}
+                        className='mt-3 btn btn-outline-danger'
+                        type='submit'
+                    >
                         Register
                     </button>
                 </form>
