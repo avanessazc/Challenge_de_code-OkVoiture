@@ -12,50 +12,14 @@ type Car = {
 }
 
 const CarForm = () => {
-    const [car, setCar] = useState<Car>({
-        username: '',
-        email: '',
-        designation: '',
-        city: '',
-        numberplate: '',
-        price: 0
-    })
-    const setUsername = (e: ChangeEvent<HTMLInputElement>) => {
-        setCar((existingValues: Car) => ({
-            ...existingValues,
-            username: e.target.value
-        }))
-    }
-    const setEmail = (e: ChangeEvent<HTMLInputElement>) => {
-        setCar((existingValues: Car) => ({
-            ...existingValues,
-            email: e.target.value
-        }))
-    }
-    const setDesignation = (e: ChangeEvent<HTMLInputElement>) => {
-        setCar((existingValues: Car) => ({
-            ...existingValues,
-            designation: e.target.value
-        }))
-    }
-    const setCity = (e: ChangeEvent<HTMLInputElement>) => {
-        setCar((existingValues: Car) => ({
-            ...existingValues,
-            city: e.target.value
-        }))
-    }
-    const setNumberplate = (e: ChangeEvent<HTMLInputElement>) => {
-        setCar((existingValues: Car) => ({
-            ...existingValues,
-            numberplate: e.target.value
-        }))
-    }
-    const setPrice = (e: ChangeEvent<HTMLInputElement>) => {
-            setCar((existingValues: Car) => ({
-                ...existingValues,
-                price: parseInt(e.target.value)
-            }))
-    }
+    const [username, setUsername] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
+    const [designation, setDesignation] = useState<string>('')
+    const [city, setCity] = useState<string>('')
+    const [numberplate, setNumberplate] = useState<string>('')
+    const [price, setPrice] = useState<number>(0)
+    // const [photo, setPhoto] = useState<string>('')
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
     }
@@ -70,10 +34,10 @@ const CarForm = () => {
                             type='text'
                             name='username'
                             placeholder='Username'
-                            value={car.username}
+                            value={username}
                             className='form-control mb-2'
                             required
-                            onChange={setUsername}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                         />
                     </label>
                     <label>
@@ -82,10 +46,10 @@ const CarForm = () => {
                             type='email'
                             name='email'
                             placeholder='Email'
-                            value={car.email}
+                            value={email}
                             className='form-control mb-2'
                             required
-                            onChange={setEmail}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                         />
                     </label>
                     <label>
@@ -94,10 +58,10 @@ const CarForm = () => {
                             type='text'
                             name='designation'
                             placeholder='mark/model/year'
-                            value={car.designation}
+                            value={designation}
                             className='form-control mb-2'
                             required
-                            onChange={setDesignation}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setDesignation(e.target.value)}
                         />
                     </label>
                     <label>
@@ -106,10 +70,10 @@ const CarForm = () => {
                             type='text'
                             name='city'
                             placeholder='City'
-                            value={car.city}
+                            value={city}
                             className='form-control mb-2'
                             required
-                            onChange={setCity}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
                         />
                     </label>
                     <label>
@@ -118,24 +82,24 @@ const CarForm = () => {
                             type='text'
                             name='numberplate'
                             placeholder='Numberplate'
-                            value={car.numberplate}
+                            value={numberplate}
                             className='form-control mb-2'
                             required
-                            onChange={setNumberplate}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setNumberplate(e.target.value)}
                         />
                     </label>
                     <label>
                         Price per day €:
                         <input
                             type='number'
-                            min='0'
-                            max='200'
+                            min='1'
+                            max='10000'
                             name='price'
                             placeholder='Price €'
-                            value={car.price}
+                            value={price}
                             className='form-control mb-2'
                             required
-                            onChange={setPrice}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setPrice(parseInt(e.target.value))}
                         />
                     </label>
                     <label>
