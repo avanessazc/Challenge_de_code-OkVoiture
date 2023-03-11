@@ -20,12 +20,50 @@ const CarForm = () => {
         numberplate: '',
         price: 0
     })
-
+    const setUsername = (e: ChangeEvent<HTMLInputElement>) => {
+        setCar((existingValues: Car) => ({
+            ...existingValues,
+            username: e.target.value
+        }))
+    }
+    const setEmail = (e: ChangeEvent<HTMLInputElement>) => {
+        setCar((existingValues: Car) => ({
+            ...existingValues,
+            email: e.target.value
+        }))
+    }
+    const setDesignation = (e: ChangeEvent<HTMLInputElement>) => {
+        setCar((existingValues: Car) => ({
+            ...existingValues,
+            designation: e.target.value
+        }))
+    }
+    const setCity = (e: ChangeEvent<HTMLInputElement>) => {
+        setCar((existingValues: Car) => ({
+            ...existingValues,
+            city: e.target.value
+        }))
+    }
+    const setNumberplate = (e: ChangeEvent<HTMLInputElement>) => {
+        setCar((existingValues: Car) => ({
+            ...existingValues,
+            numberplate: e.target.value
+        }))
+    }
+    const setPrice = (e: ChangeEvent<HTMLInputElement>) => {
+            setCar((existingValues: Car) => ({
+                ...existingValues,
+                price: parseInt(e.target.value)
+            }))
+    }
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+    }
     return (
         <div className='container mb-3 mt-3'>
             <div className='col-md-4 offset-md-4'>
                 <h1 className='text-center'>Car</h1>
-                <form className='card card-body bg-dark tex-white'>
+                <form onSubmit={handleSubmit} className='card card-body bg-dark'>
                     <label>
                         Name:
                         <input
@@ -35,6 +73,7 @@ const CarForm = () => {
                             value={car.username}
                             className='form-control mb-2'
                             required
+                            onChange={setUsername}
                         />
                     </label>
                     <label>
@@ -46,6 +85,7 @@ const CarForm = () => {
                             value={car.email}
                             className='form-control mb-2'
                             required
+                            onChange={setEmail}
                         />
                     </label>
                     <label>
@@ -57,6 +97,7 @@ const CarForm = () => {
                             value={car.designation}
                             className='form-control mb-2'
                             required
+                            onChange={setDesignation}
                         />
                     </label>
                     <label>
@@ -68,6 +109,7 @@ const CarForm = () => {
                             value={car.city}
                             className='form-control mb-2'
                             required
+                            onChange={setCity}
                         />
                     </label>
                     <label>
@@ -79,17 +121,21 @@ const CarForm = () => {
                             value={car.numberplate}
                             className='form-control mb-2'
                             required
+                            onChange={setNumberplate}
                         />
                     </label>
                     <label>
-                        Price per day:
+                        Price per day €:
                         <input
-                            type='text'
+                            type='number'
+                            min='0'
+                            max='200'
                             name='price'
-                            placeholder='Price'
+                            placeholder='Price €'
                             value={car.price}
                             className='form-control mb-2'
                             required
+                            onChange={setPrice}
                         />
                     </label>
                     <label>
