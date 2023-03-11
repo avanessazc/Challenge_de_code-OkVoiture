@@ -1,7 +1,9 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
+import { useFormik, FormikHelpers } from 'formik'
+import { schema } from '../rules'
 
-type Car = {
+type CarFormValues = {
     username: string
     email: string
     designation: string
@@ -11,18 +13,27 @@ type Car = {
     // photo: File
 }
 
-const CarForm = () => {
-    const [username, setUsername] = useState<string>('')
-    const [email, setEmail] = useState<string>('')
-    const [designation, setDesignation] = useState<string>('')
-    const [city, setCity] = useState<string>('')
-    const [numberplate, setNumberplate] = useState<string>('')
-    const [price, setPrice] = useState<number>(0)
-    // const [photo, setPhoto] = useState<string>('')
+const onSubmit = (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
+    console.log('Info sent')
+    actions.resetForm()
+}
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+const CarForm = () => {
+    const initValues: CarFormValues = {
+        username: '',
+        email: '',
+        designation: '',
+        city: '',
+        numberplate: '',
+        price: 0
     }
+    const { values, errors, touched, isSubmitting, handleChange, handleSubmit } = useFormik({
+        initialValues: initValues,
+        validationSchema: schema,
+        onSubmit
+    })
+
+    console.log(errors)
     return (
         <div className='container mb-3 mt-3'>
             <div className='col-md-4 offset-md-4'>
@@ -34,10 +45,10 @@ const CarForm = () => {
                             type='text'
                             name='username'
                             placeholder='Username'
-                            value={username}
+                            value={values.username}
                             className='form-control mb-2'
                             required
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+                            onChange={handleChange}
                         />
                     </label>
                     <label>
@@ -46,11 +57,14 @@ const CarForm = () => {
                             type='email'
                             name='email'
                             placeholder='Email'
-                            value={email}
+                            value={values.email}
                             className='form-control mb-2'
                             required
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                            onChange={handleChange}
                         />
+                        {errors.email && touched.email && (
+                            <span className='text-danger'>{errors.email}</span>
+                        )}
                     </label>
                     <label>
                         Designation:
@@ -58,11 +72,14 @@ const CarForm = () => {
                             type='text'
                             name='designation'
                             placeholder='mark/model/year'
-                            value={designation}
+                            value={values.designation}
                             className='form-control mb-2'
                             required
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setDesignation(e.target.value)}
+                            onChange={handleChange}
                         />
+                        {errors.designation && touched.designation && (
+                            <span className='text-danger'>{errors.designation}</span>
+                        )}
                     </label>
                     <label>
                         City:
@@ -70,10 +87,10 @@ const CarForm = () => {
                             type='text'
                             name='city'
                             placeholder='City'
-                            value={city}
+                            value={values.city}
                             className='form-control mb-2'
                             required
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
+                            onChange={handleChange}
                         />
                     </label>
                     <label>
@@ -82,25 +99,28 @@ const CarForm = () => {
                             type='text'
                             name='numberplate'
                             placeholder='Numberplate'
-                            value={numberplate}
+                            value={values.numberplate}
                             className='form-control mb-2'
                             required
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setNumberplate(e.target.value)}
+                            onChange={handleChange}
                         />
                     </label>
                     <label>
                         Price per day €:
                         <input
                             type='number'
-                            min='1'
+                            min='0'
                             max='10000'
                             name='price'
                             placeholder='Price €'
-                            value={price}
+                            value={values.price}
                             className='form-control mb-2'
                             required
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setPrice(parseInt(e.target.value))}
+                            onChange={handleChange}
                         />
+                        {errors.price && touched.price && (
+                            <span className='text-danger'>{errors.price}</span>
+                        )}
                     </label>
                     <label>
                         Car&apos;s Photo:
@@ -112,7 +132,9 @@ const CarForm = () => {
                             required
                         />
                     </label>
-                    <button className='mt-3 btn-danger'>Register</button>
+                    <button disabled={isSubmitting} className='mt-3 btn-danger' type='submit'>
+                        Register
+                    </button>
                 </form>
             </div>
         </div>
