@@ -5,6 +5,7 @@ import { config } from './orm.config';
 import { ConfigModule } from '@nestjs/config';
 import { CarsController } from './cars/cars.controller';
 import { CarsService } from './cars/cars.service';
+import { CarsRepository } from './cars/cars.repository';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { CarsService } from './cars/cars.service';
     CarsModule,
   ],
   controllers: [CarsController],
-  providers: [CarsService],
+  providers: [CarsService, CarsRepository],
 })
 export class AppModule {}

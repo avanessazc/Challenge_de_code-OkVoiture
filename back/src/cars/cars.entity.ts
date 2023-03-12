@@ -20,7 +20,7 @@ export class Cars {
   @Column({ type: 'varchar', length: 30, unique: true })
   numberplate: string;
 
-  @Column({ type: 'float' })
+  @Column({ type: 'int' })
   price: number;
 
   // @Column("varchar", { length: 100 })
