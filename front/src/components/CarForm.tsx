@@ -3,49 +3,26 @@ import { useState, ChangeEvent, useRef } from 'react'
 import { useFormik, FormikHelpers } from 'formik'
 import { schema } from '../rules'
 import axios from 'axios'
-// https://geo.api.gouv.fr/departements/987/communes
-type CarFormValues = {
-    username: string
-    email: string
-    designation: string
-    city: string
-    numberplate: string
-    price: number
-    photo: File
-}
-
-type CityInfo = {
-    nom: string
-    code: string
-    codeDepartement: string
-    codeRegion: string
-    codesPostaux: string[]
-    population: number
-}
-// const getCities = (): CityInfo[] => {
-//     let cities: CityInfo[] = []
-
-//     return cities
-// }
+import { CarFormValues, CityInfo } from '../types'
 
 const CarForm = () => {
+    // Ref to the element that upload the photo
     const photoRef = useRef<HTMLInputElement | null>(null)
     const [cities, setCities] = useState<CityInfo[]>([])
-
+    // Get cities information from GEO API 
     axios
         .get('https://geo.api.gouv.fr/departements/987/communes')
-        .then((res: any) => {
+        .then((res) => {
             setCities(res.data)
         })
         .catch((err: unknown) => {
             console.log('submit error: ', err)
+            setCities([])
         })
-
-    // const cities: CityInfo[] = getCities()
-    // console.log(cities)
+    
+    // Send form information to the backend
     const onSubmit = (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
         console.log('values: ', values)
-
         axios
             .post('http://localhost:3000/cars', values, {
                 headers: {
@@ -56,9 +33,11 @@ const CarForm = () => {
             .catch((err: unknown) => {
                 console.log('submit error: ', err)
             })
+        // Clear the element that upload the photo
         if (photoRef.current) {
             photoRef.current.value = ''
         }
+        
         actions.resetForm()
     }
 
@@ -71,6 +50,7 @@ const CarForm = () => {
         price: 0,
         photo: {} as File
     }
+    // Formik validate the field before submit them
     const { values, errors, touched, isSubmitting, handleChange, handleSubmit, setFieldValue } =
         useFormik({
             initialValues: initValues,
@@ -129,24 +109,19 @@ const CarForm = () => {
                             <span className='text-danger'>{errors.designation}</span>
                         )}
                     </label>
-                    {/* <label>
-                        City:
-                        <input
-                            type='text'
-                            name='city'
-                            placeholder='City'
-                            value={values.city}
-                            className='form-control mb-2'
-                            required
-                            onChange={handleChange}
-                        />
-                    </label> */}
                     <label>
                         City:
-                        <select className='form-select mb-2'>
+                        <select
+                            value={values.city}
+                            name='city'
+                            onChange={handleChange}
+                            className='form-select mb-2'
+                        >
                             {cities.length != 0 &&
                                 cities.map((city: CityInfo) => (
-                                    <option key={city.code}>{city.nom}</option>
+                                    <option value={city.nom} key={city.code}>
+                                        {city.nom}
+                                    </option>
                                 ))}
                         </select>
                     </label>
@@ -166,7 +141,7 @@ const CarForm = () => {
                         Price per day €:
                         <input
                             type='number'
-                            min='0'
+                            min='1'
                             max='10000'
                             name='price'
                             placeholder='Price €'
