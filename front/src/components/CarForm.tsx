@@ -1,9 +1,9 @@
-import { ChangeEvent, useRef } from 'react'
+import { useState, ChangeEvent, useRef } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { useFormik, FormikHelpers } from 'formik'
 import { schema } from '../rules'
 import axios from 'axios'
-
+// https://geo.api.gouv.fr/departements/987/communes
 type CarFormValues = {
     username: string
     email: string
@@ -14,21 +14,48 @@ type CarFormValues = {
     photo: File
 }
 
+type CityInfo = {
+    nom: string
+    code: string
+    codeDepartement: string
+    codeRegion: string
+    codesPostaux: string[]
+    population: number
+}
+// const getCities = (): CityInfo[] => {
+//     let cities: CityInfo[] = []
+
+//     return cities
+// }
+
 const CarForm = () => {
     const photoRef = useRef<HTMLInputElement | null>(null)
+    const [cities, setCities] = useState<CityInfo[]>([])
 
-    const onSubmit = async (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
-        try {
-            console.log('values: ', values)
+    axios
+        .get('https://geo.api.gouv.fr/departements/987/communes')
+        .then((res: any) => {
+            setCities(res.data)
+        })
+        .catch((err: unknown) => {
+            console.log('submit error: ', err)
+        })
 
-            const response = await axios.post('http://localhost:3000/cars', values, {
+    // const cities: CityInfo[] = getCities()
+    // console.log(cities)
+    const onSubmit = (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
+        console.log('values: ', values)
+
+        axios
+            .post('http://localhost:3000/cars', values, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-        } catch (err) {
-            console.log('submit error: ', err)
-        }
+            .then()
+            .catch((err: unknown) => {
+                console.log('submit error: ', err)
+            })
         if (photoRef.current) {
             photoRef.current.value = ''
         }
@@ -53,7 +80,6 @@ const CarForm = () => {
     const onFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
             setFieldValue('photo', event.target.files[0])
-            
         }
     }
     return (
@@ -103,7 +129,7 @@ const CarForm = () => {
                             <span className='text-danger'>{errors.designation}</span>
                         )}
                     </label>
-                    <label>
+                    {/* <label>
                         City:
                         <input
                             type='text'
@@ -114,6 +140,15 @@ const CarForm = () => {
                             required
                             onChange={handleChange}
                         />
+                    </label> */}
+                    <label>
+                        City:
+                        <select className='form-select mb-2'>
+                            {cities.length != 0 &&
+                                cities.map((city: CityInfo) => (
+                                    <option key={city.code}>{city.nom}</option>
+                                ))}
+                        </select>
                     </label>
                     <label>
                         Numberplate:
