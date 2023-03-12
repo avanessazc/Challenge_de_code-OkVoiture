@@ -20,11 +20,11 @@ export class Cars {
   @Column({ type: 'varchar', length: 30, unique: true })
   numberplate: string;
 
-  @Column({ type: 'int' })
-  price: number;
+  @Column({ type: 'varchar', length: 5 })
+  price: string;
 
-  // @Column("varchar", { length: 100 })
-  // photo_url: string;
+  @Column("varchar", { length: 100 })
+  photo_name: string;
 
   @Column({ type: 'date', default: () => 'CURRENT_DATE' })
   create_at: Date;

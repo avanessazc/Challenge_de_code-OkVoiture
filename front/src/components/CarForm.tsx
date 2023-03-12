@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react'
+import { useState, ChangeEvent, FormEvent, useRef } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { useFormik, FormikHelpers } from 'formik'
 import { schema } from '../rules'
@@ -11,7 +11,7 @@ type CarFormValues = {
     city: string
     numberplate: string
     price: number
-    // photo: File
+    photo: File
 }
 
 const onSubmit = async (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
@@ -19,13 +19,13 @@ const onSubmit = async (values: CarFormValues, actions: FormikHelpers<CarFormVal
         console.log('values: ', values)
         const response = await axios.post('http://localhost:3000/cars', values, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data'
             }
         })
     } catch (err) {
         console.log('submit error: ', err)
     }
-    console.log('Info sent')
+    console.log('Info sent', values)
     actions.resetForm()
 }
 
@@ -36,14 +36,20 @@ const CarForm = () => {
         designation: '',
         city: '',
         numberplate: '',
-        price: 0
+        price: 0,
+        photo: {} as File
     }
-    const { values, errors, touched, isSubmitting, handleChange, handleSubmit } = useFormik({
-        initialValues: initValues,
-        validationSchema: schema,
-        onSubmit
-    })
-
+    const { values, errors, touched, isSubmitting, handleChange, handleSubmit, setFieldValue } =
+        useFormik({
+            initialValues: initValues,
+            validationSchema: schema,
+            onSubmit
+        })
+    const onFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) {
+            setFieldValue('photo', event.target.files[0])
+        }
+    }
     console.log(errors)
     return (
         <div className='container mb-3 mt-3'>
@@ -141,6 +147,8 @@ const CarForm = () => {
                             placeholder="Car's Photo"
                             className='form-control mb-2'
                             required
+                            onChange={onFileInputChange}
+                            accept='image/png, image/jpeg'
                         />
                     </label>
                     <button

@@ -37,8 +37,12 @@ export class CarFormValuesDto {
   numberplate: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  price: number;
+  @Matches(/(^[1-9]*)$/, {
+    message: 'Price should be a number',
+  })
+  price: string;
 
-  // photo: File
+  photo: File;
+
+  photo_name?: string;
 }
