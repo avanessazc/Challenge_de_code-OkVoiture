@@ -8,6 +8,9 @@ import {
 } from 'class-validator';
 
 export class CarFormValuesDto {
+
+  id?: string;
+
   @IsNotEmpty()
   @IsString()
   @MaxLength(30)

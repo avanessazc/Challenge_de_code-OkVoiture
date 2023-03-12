@@ -23,7 +23,7 @@ export class Cars {
   @Column({ type: 'varchar', length: 5 })
   price: string;
 
-  @Column("varchar", { length: 100 })
+  @Column('varchar', { length: 100 })
   photo_name: string;
 
   @Column({ type: 'date', default: () => 'CURRENT_DATE' })

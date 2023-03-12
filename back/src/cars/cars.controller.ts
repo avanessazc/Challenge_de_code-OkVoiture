@@ -26,7 +26,7 @@ export class CarsController {
     @UploadedFile() photo: Express.Multer.File,
   ) {
     if (photo) {
-      car.photo_name = photo.filename
+      car.photo_name = photo.filename;
     }
     console.log(car);
     console.log(photo);
