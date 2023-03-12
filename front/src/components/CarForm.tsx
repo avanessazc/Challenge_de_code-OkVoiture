@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, useRef } from 'react'
+import { ChangeEvent, useRef } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { useFormik, FormikHelpers } from 'formik'
 import { schema } from '../rules'
@@ -14,22 +14,27 @@ type CarFormValues = {
     photo: File
 }
 
-const onSubmit = async (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
-    try {
-        console.log('values: ', values)
-        const response = await axios.post('http://localhost:3000/cars', values, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-    } catch (err) {
-        console.log('submit error: ', err)
-    }
-    console.log('Info sent', values)
-    actions.resetForm()
-}
-
 const CarForm = () => {
+    const photoRef = useRef<HTMLInputElement | null>(null)
+
+    const onSubmit = async (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
+        try {
+            console.log('values: ', values)
+
+            const response = await axios.post('http://localhost:3000/cars', values, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        } catch (err) {
+            console.log('submit error: ', err)
+        }
+        if (photoRef.current) {
+            photoRef.current.value = ''
+        }
+        actions.resetForm()
+    }
+
     const initValues: CarFormValues = {
         username: '',
         email: '',
@@ -48,9 +53,9 @@ const CarForm = () => {
     const onFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
             setFieldValue('photo', event.target.files[0])
+            
         }
     }
-    console.log(errors)
     return (
         <div className='container mb-3 mt-3'>
             <div className='col-md-4 offset-md-4'>
@@ -144,11 +149,11 @@ const CarForm = () => {
                         <input
                             type='file'
                             name='photo'
-                            placeholder="Car's Photo"
                             className='form-control mb-2'
                             required
                             onChange={onFileInputChange}
                             accept='image/png, image/jpeg'
+                            ref={photoRef}
                         />
                     </label>
                     <button

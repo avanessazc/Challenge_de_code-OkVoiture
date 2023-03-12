@@ -1,1 +1,1 @@
-export * from './db-errors'
+export * from './db-errors';

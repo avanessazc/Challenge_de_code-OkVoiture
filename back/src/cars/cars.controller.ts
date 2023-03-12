@@ -8,6 +8,7 @@ import {
   ParseFilePipe,
   FileTypeValidator,
   MaxFileSizeValidator,
+  BadRequestException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
@@ -25,16 +26,14 @@ export class CarsController {
     @Body() car: CarFormValuesDto,
     @UploadedFile() photo: Express.Multer.File,
   ) {
+    if (photo === undefined) {
+      throw new BadRequestException('Photo is missing');
+    }
     if (photo) {
       car.photo_name = photo.filename;
     }
     console.log(car);
     console.log(photo);
-    // console.log(process.env.POSTGRES_USER);
-    // console.log(process.env.POSTGRES_PASSWORD);
-    // console.log(process.env.POSTGRES_PORT);
-    // console.log(process.env.POSTGRES_HOST);
-    // console.log(process.env.POSTGRES_DB);
     return this.carsService.createNewCar(car);
   }
 }

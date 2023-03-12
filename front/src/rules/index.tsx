@@ -12,5 +12,6 @@ export const schema = yup.object().shape({
         .string()
         .matches(designationRule, { message: 'Please enter mark/model/year' })
         .required('Required'),
-    price: yup.number().positive().integer().required('Required')
+    price: yup.number().positive().integer().required('Required'),
+    photo: yup.mixed().nullable().required('File is required')
 })
