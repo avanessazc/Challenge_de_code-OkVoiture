@@ -25,7 +25,7 @@ export class CarsController {
   createNewCar(
     @Body() car: CarFormValuesDto,
     @UploadedFile() photo: Express.Multer.File,
-  ) {
+  ): Promise<CarFormValuesDto | never> {
     if (photo === undefined) {
       throw new BadRequestException('Photo is missing');
     }

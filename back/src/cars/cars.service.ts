@@ -16,7 +16,6 @@ export class CarsService {
   async createNewCar(car: CarFormValuesDto): Promise<CarFormValuesDto | never> {
     try {
       const ret = await this.carsRepository.save(car);
-      console.log('ret: ', ret);
       return ret;
     } catch (error) {
       if (error.code === dataBaseErrors[0].code) {
@@ -25,6 +24,7 @@ export class CarsService {
         throw new ConflictException('Car ' + dataBaseErrors[1].message);
       } else {
         console.log(error.code);
+        console.log(error);
         throw new InternalServerErrorException();
       }
     }
