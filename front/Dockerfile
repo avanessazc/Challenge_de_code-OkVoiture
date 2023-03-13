@@ -7,7 +7,6 @@ RUN apk add vim && \
 
 COPY package*.json ./
 
-# # Install package.json dependencies.
 RUN npm install
 
 COPY .env ./
