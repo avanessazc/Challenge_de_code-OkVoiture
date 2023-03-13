@@ -1,40 +1,7 @@
-// const Navbar = () => {
-//     return (
-//         <nav className=''>
-//             <div className=''>
-//                 <a className='' href='#'>
-//                     OK Voiture
-//                 </a>
-//                 <div className=''>
-//                     <ul className=''>
-//                         <li className=''>
-//                             <a className='' href='#'>
-//                                 Register
-//                             </a>
-//                         </li>
-//                         <li className=''>
-//                             <a className='' href='#'>
-//                                 Voitures
-//                             </a>
-//                         </li>
-//                         <li className=''>
-//                             <a className='' href='#'>
-//                                 Reservations
-//                             </a>
-//                         </li>
-//                     </ul>
-//                 </div>
-//             </div>
-//         </nav>
-//     )
-// }
-
-// export default Navbar
-
-import React from 'react'
+import { useState } from 'react'
 
 export default function Navbar() {
-    const [navbarOpen, setNavbarOpen] = React.useState(false)
+    const [navbarOpen, setNavbarOpen] = useState(false)
     return (
         <>
             <nav className='relative flex flex-wrap items-center justify-between px-2 py-3 bg-stone-500'>
@@ -42,7 +9,7 @@ export default function Navbar() {
                     <div className='w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start'>
                         <a
                             className='text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white'
-                            href='#'
+                            href=''
                         >
                             OK Voiture
                         </a>
@@ -77,7 +44,7 @@ export default function Navbar() {
                             <li className='nav-item'>
                                 <a
                                     className='px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75'
-                                    href='#'
+                                    href=''
                                 >
                                     Register
                                 </a>
@@ -85,7 +52,7 @@ export default function Navbar() {
                             <li className='nav-item'>
                                 <a
                                     className='px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75'
-                                    href='#'
+                                    href=''
                                 >
                                     Voitures
                                 </a>
@@ -93,7 +60,7 @@ export default function Navbar() {
                             <li className='nav-item'>
                                 <a
                                     className='px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75'
-                                    href='#'
+                                    href=''
                                 >
                                     Reservations
                                 </a>

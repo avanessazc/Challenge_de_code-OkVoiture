@@ -1,18 +1,11 @@
-// const Footer = () => {
-//     return (
-//         <footer className='footer mt-auto py-3 fixed-bottom bg-secondary'>
-//             <div className='container d-flex justify-content-center'>
-//                 <span className='text-white'>2023 Mana&apos;o Agency</span>
-//             </div>
-//         </footer>
-//     )
-// }
-
-// export default Footer
-
 const Footer = () => {
     return (
-        <footer className='bg-stone-400 text-center'>
+        <footer
+            className='w-full h-16 bg-stone-400 border-t-2 border-white
+            fixed left-0 bottom-0
+            flex justify-center items-center
+            text-white'
+        >
             <div className='p-4 text-center text-stone-700 dark:text-stone-200'>© 2023</div>
         </footer>
     )
