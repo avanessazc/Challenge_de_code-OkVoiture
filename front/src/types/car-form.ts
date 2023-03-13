@@ -7,4 +7,3 @@ export type CarFormValues = {
     price: number
     photo: File
 }
-

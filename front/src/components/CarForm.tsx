@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useRef } from 'react'
+import { useState, ChangeEvent, useRef, useEffect } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { useFormik, FormikHelpers } from 'formik'
 import { schema } from '../rules'
@@ -9,17 +9,18 @@ const CarForm = () => {
     // Ref to the element that upload the photo
     const photoRef = useRef<HTMLInputElement | null>(null)
     const [cities, setCities] = useState<CityInfo[]>([])
-    // Get cities information from GEO API 
-    axios
-        .get('https://geo.api.gouv.fr/departements/987/communes')
-        .then((res) => {
-            setCities(res.data)
-        })
-        .catch((err: unknown) => {
-            console.log('submit error: ', err)
-            setCities([])
-        })
-    
+    // Get cities information from GEO API
+    useEffect(() => {
+        axios
+            .get('https://geo.api.gouv.fr/departements/987/communes')
+            .then((res) => {
+                setCities(res.data)
+            })
+            .catch((err: unknown) => {
+                console.log('submit error: ', err)
+                setCities([])
+            })
+    }, [])
     // Send form information to the backend
     const onSubmit = (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
         console.log('values: ', values)
@@ -37,7 +38,7 @@ const CarForm = () => {
         if (photoRef.current) {
             photoRef.current.value = ''
         }
-        
+
         actions.resetForm()
     }
 
@@ -117,6 +118,7 @@ const CarForm = () => {
                             onChange={handleChange}
                             className='form-select mb-2'
                         >
+                            <option value=''>---- Choose a city ----</option>
                             {cities.length != 0 &&
                                 cities.map((city: CityInfo) => (
                                     <option value={city.nom} key={city.code}>
@@ -124,6 +126,9 @@ const CarForm = () => {
                                     </option>
                                 ))}
                         </select>
+                        {errors.city && touched.city && (
+                            <span className='text-danger'>{errors.city}</span>
+                        )}
                     </label>
                     <label>
                         Numberplate:
@@ -138,7 +143,7 @@ const CarForm = () => {
                         />
                     </label>
                     <label>
-                        Price per day €:
+                        Price €:
                         <input
                             type='number'
                             min='1'
