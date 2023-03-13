@@ -34,7 +34,11 @@ const CarForm = () => {
                 console.log(response.data)
             })
             .catch((error) => {
-                if (axios.isAxiosError(error) && error.response) {
+                if (
+                    axios.isAxiosError(error) &&
+                    error.response &&
+                    error.response.data.statusCode == 409
+                ) {
                     setErrorResponseApi(error.response.data.message)
                     setTimeout(() => {
                         setErrorResponseApi('')
@@ -65,6 +69,7 @@ const CarForm = () => {
             validationSchema: schema,
             onSubmit
         })
+
     const onFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
             setFieldValue('photo', event.target.files[0])
@@ -86,6 +91,9 @@ const CarForm = () => {
                             required
                             onChange={handleChange}
                         />
+                        {errors.username && touched.username && (
+                            <span className='text-danger'>{errors.username}</span>
+                        )}
                     </label>
                     <label>
                         Email:
@@ -148,6 +156,9 @@ const CarForm = () => {
                             required
                             onChange={handleChange}
                         />
+                        {errors.numberplate && touched.numberplate && (
+                            <span className='text-danger'>{errors.numberplate}</span>
+                        )}
                         {errorResponseApi && (
                             <span className='text-danger'>{errorResponseApi}</span>
                         )}
