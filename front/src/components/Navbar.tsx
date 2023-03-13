@@ -1,43 +1,107 @@
-const Navbar = () => {
+// const Navbar = () => {
+//     return (
+//         <nav className=''>
+//             <div className=''>
+//                 <a className='' href='#'>
+//                     OK Voiture
+//                 </a>
+//                 <div className=''>
+//                     <ul className=''>
+//                         <li className=''>
+//                             <a className='' href='#'>
+//                                 Register
+//                             </a>
+//                         </li>
+//                         <li className=''>
+//                             <a className='' href='#'>
+//                                 Voitures
+//                             </a>
+//                         </li>
+//                         <li className=''>
+//                             <a className='' href='#'>
+//                                 Reservations
+//                             </a>
+//                         </li>
+//                     </ul>
+//                 </div>
+//             </div>
+//         </nav>
+//     )
+// }
+
+// export default Navbar
+
+import React from 'react'
+
+export default function Navbar() {
+    const [navbarOpen, setNavbarOpen] = React.useState(false)
     return (
-        <nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
-            <div className='container-fluid'>
-                <a className='navbar-brand' href='#'>
-                    OK Voiture
-                </a>
-                <button
-                    className='navbar-toggler collapsed'
-                    type='button'
-                    data-bs-toggle='collapse'
-                    data-bs-target='#navbarColor01'
-                    aria-controls='navbarColor01'
-                    aria-expanded='false'
-                    aria-label='Toggle navigation'
-                >
-                    <span className='navbar-toggler-icon'></span>
-                </button>
-                <div className='navbar-collapse collapse' id='navbarColor01'>
-                    <ul className='navbar-nav me-auto'>
-                        <li className='nav-item'>
-                            <a className='nav-link' href='#'>
-                                Register
-                            </a>
-                        </li>
-                        <li className='nav-item'>
-                            <a className='nav-link' href='#'>
-                                Voitures
-                            </a>
-                        </li>
-                        <li className='nav-item'>
-                            <a className='nav-link' href='#'>
-                                Reservations
-                            </a>
-                        </li>
-                    </ul>
+        <>
+            <nav className='relative flex flex-wrap items-center justify-between px-2 py-3 bg-stone-500'>
+                <div className='container px-4 mx-auto flex flex-wrap items-center justify-between'>
+                    <div className='w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start'>
+                        <a
+                            className='text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white'
+                            href='#'
+                        >
+                            OK Voiture
+                        </a>
+                        <button
+                            className='text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none'
+                            type='button'
+                            onClick={() => setNavbarOpen(!navbarOpen)}
+                        >
+                            <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                fill='none'
+                                viewBox='0 0 24 24'
+                                strokeWidth={1.5}
+                                stroke='currentColor'
+                                className='w-6 h-6'
+                            >
+                                <path
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                    d='M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5'
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    <div
+                        className={
+                            'lg:flex flex-grow items-center' + (navbarOpen ? ' flex' : ' hidden')
+                        }
+                        id='example-navbar-danger'
+                    >
+                        <ul className='flex flex-col lg:flex-row list-none lg:ml-auto'>
+                            <li className='nav-item'>
+                                <a
+                                    className='px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75'
+                                    href='#'
+                                >
+                                    Register
+                                </a>
+                            </li>
+                            <li className='nav-item'>
+                                <a
+                                    className='px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75'
+                                    href='#'
+                                >
+                                    Voitures
+                                </a>
+                            </li>
+                            <li className='nav-item'>
+                                <a
+                                    className='px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75'
+                                    href='#'
+                                >
+                                    Reservations
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </>
     )
 }
-
-export default Navbar
