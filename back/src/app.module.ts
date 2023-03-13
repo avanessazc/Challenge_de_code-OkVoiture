@@ -7,6 +7,8 @@ import { CarsService } from './cars/cars.service';
 import { CarsRepository } from './cars/cars.repository';
 import { MulterModule } from '@nestjs/platform-express';
 import { Cars } from './entities/cars.entity';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { EmailController } from './email.controller';
 
 @Global()
 @Module({
@@ -14,7 +16,23 @@ import { Cars } from './entities/cars.entity';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // MulterModule.register({ dest: './photos' }),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.SENDGRID_HOST,
+        auth: {
+          user: process.env.SENDGRID_USER,
+          pass:
+            process.env.SENDGRID_PASS,
+        },
+      },
+      // template: {
+      //   dir: __dirname + '/templates',
+      //   adapter: new PugAdapter(),
+      //   options: {
+      //     strict: true,
+      //   },
+      // },
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       username: process.env.POSTGRES_USER,
@@ -27,7 +45,7 @@ import { Cars } from './entities/cars.entity';
     }),
     CarsModule,
   ],
-  controllers: [CarsController],
+  controllers: [CarsController, EmailController],
   providers: [CarsService, CarsRepository],
 })
 export class AppModule {}
