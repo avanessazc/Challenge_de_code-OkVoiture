@@ -9,6 +9,7 @@ const CarForm = () => {
     // Ref to the element that upload the photo
     const photoRef = useRef<HTMLInputElement | null>(null)
     const [cities, setCities] = useState<CityInfo[]>([])
+    const [errorResponseApi, setErrorResponseApi] = useState<string>('')
     // Get cities information from GEO API
     useEffect(() => {
         axios
@@ -17,28 +18,34 @@ const CarForm = () => {
                 setCities(res.data)
             })
             .catch((err: unknown) => {
-                console.log('submit error: ', err)
                 setCities([])
             })
     }, [])
     // Send form information to the backend
     const onSubmit = (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
-        console.log('values: ', values)
+        console.log('values: ', values) // TO DELETE
         axios
             .post('http://localhost:3000/cars', values, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            .then()
-            .catch((err: unknown) => {
-                console.log('submit error: ', err)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                if (axios.isAxiosError(error) && error.response) {
+                    setErrorResponseApi(error.response.data.message)
+                    setTimeout(() => {
+                        setErrorResponseApi('')
+                    }, 3000)
+                }
+                console.log('submit error: ', error)
             })
         // Clear the element that upload the photo
         if (photoRef.current) {
             photoRef.current.value = ''
         }
-
         actions.resetForm()
     }
 
@@ -141,6 +148,9 @@ const CarForm = () => {
                             required
                             onChange={handleChange}
                         />
+                        {errorResponseApi && (
+                            <span className='text-danger'>{errorResponseApi}</span>
+                        )}
                     </label>
                     <label>
                         Price €:
