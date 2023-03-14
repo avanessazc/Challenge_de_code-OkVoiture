@@ -4,6 +4,7 @@ import {
   Post,
   Body,
   Param,
+  Redirect,
   UploadedFile,
   UseInterceptors,
   BadRequestException,
@@ -35,6 +36,7 @@ export class CarsController {
     }
     const ret = await this.carsService.checkIfCarExist(car);
     if (ret) {
+      //DELETE PHOTO
       throw new ConflictException('Car ' + dataBaseErrors[0].message);
     }
 
@@ -47,16 +49,9 @@ export class CarsController {
   }
 
   @Get('email-confirmation/:token')
+  @Redirect('http://localhost:8080', 302)
   async createNewCar(@Param('token') token: string): Promise<CarFormValuesDto> {
-    const car: CarFormValuesDto = {
-      username: '',
-      email: '',
-      designation: '',
-      city: '',
-      numberplate: '',
-      price: '',
-      photo_name: '',
-    };
+    const car: CarFormValuesDto = this.carsService.verifyToken(token);
     return this.carsService.createNewCar(car);
   }
 }

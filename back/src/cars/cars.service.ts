@@ -2,18 +2,21 @@ import {
   Injectable,
   ConflictException,
   InternalServerErrorException,
+  BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CarsRepository } from './cars.repository';
 import { CarFormValuesDto } from './dtos';
 import { dataBaseErrors } from '../errors';
 import { MailerService } from '@nestjs-modules/mailer';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class CarsService {
   constructor(
     @InjectRepository(CarsRepository) private carsRepository: CarsRepository,
     private mailService: MailerService,
+    private jwtService: JwtService,
   ) {}
 
   async checkIfCarExist(
@@ -27,12 +30,26 @@ export class CarsService {
   }
 
   createToken(car: CarFormValuesDto): string {
-    const token = 'hola';
-    return token;
+    return this.jwtService.sign(car, {
+      secret: process.env.EMAIL_SECRET || 'TOP_SECRET',
+      expiresIn: parseInt(process.env.EXPIRE_TIME_EMAIL_SECRET) || 60,
+    });
+  }
+
+  verifyToken(token: string): CarFormValuesDto | never {
+    try {
+      const { iat, exp, ...car } = this.jwtService.verify(token, {
+        secret: process.env.EMAIL_SECRET || 'TOP_SECRET',
+      });
+      return car;
+    } catch (error) {
+      console.log('Error while verifying Token: ', error.message);
+      throw new BadRequestException(error.message);
+    }
   }
 
   sendConfirmationEmail(toemail: string, token: string): void {
-    const url = `http://localhost:3000/confirmation/${token}`;
+    const url = `http://localhost:3000/cars/email-confirmation/${token}`;
     this.mailService
       .sendMail({
         to: toemail,
@@ -40,13 +57,13 @@ export class CarsService {
         subject: 'Confirm email OkVoiture Challenge',
         html: ` <h1>Welcome to OKVoiture!</h1>
                 <p>Please click to confirm your email:</p>
-                <a href="${url}">${url}</a>`,
+                <a href="${url}">HERE!</a>`,
       })
       .then(() => {
         console.log('Email sent!');
       })
       .catch((error) => {
-        console.log('Error while sending error email.', error);
+        console.log('Error while sending email.', error.message);
       });
   }
 

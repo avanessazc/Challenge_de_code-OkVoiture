@@ -5,9 +5,9 @@ OkVoiture application with stack:
 - React
 - NestJS
 - TypeOrm
-- Postgres
+- PostgreSQL
 - TailwindCSS
-- Docker composer
+- Docker compose
 
 ## Running the application
 From the project's root folder run:
@@ -15,5 +15,5 @@ From the project's root folder run:
 docker compose up --build
 ```
 
-Check API at http://localhost:3000/
-Check vue front at http://localhost:8080/
+- Check API at http://localhost:3000/
+- Check vue front at http://localhost:8080/

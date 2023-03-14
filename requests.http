@@ -36,3 +36,6 @@ Content-Type: image/png
 
 ### Send email TO DELETE
 GET  http://localhost:3000/email/plain-text-mail?toemail=avane89@gmail.com
+
+### Send email TO DELETE
+GET http://localhost:3000/cars/email-confirmation/:token
