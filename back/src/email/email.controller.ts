@@ -7,25 +7,21 @@ export class EmailController {
 
   @Get('plain-text-mail')
   plainTextEmail(@Query('toemail') toemail) {
+    const url = `http://localhost:8080/hola`;
     this.mailService
       .sendMail({
         to: toemail,
         from: process.env.FROM_EMAIL,
-        subject: 'Verifying email OkVoiture Challenge',
-        text: 'Welcome to OKVoiture. You have just registered a car! :)',
+        subject: 'Confirm email OkVoiture Challenge',
+        html: ` <h1>Welcome to OKVoiture!</h1>
+                <p>Please click to confirm your email:</p>
+                <a href="${url}">${url}</a>`,
       })
       .then(() => {
         console.log('Email sent!');
-        return 'success';
       })
       .catch((error) => {
-        console.log(
-          'Error while sending error email.',
-          error,
-          'HttpExceptionFilter',
-        );
+        console.log('Error while sending error email.', error);
       });
-
-    
   }
 }

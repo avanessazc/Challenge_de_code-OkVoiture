@@ -10,7 +10,7 @@ vanessa
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="email"
 
-vanessa@gmail.com
+avane89@gmail.com
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="designation"
 
@@ -22,7 +22,7 @@ Bora-Bora
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="numberplate"
 
-ABCDEFS
+ABCDEFSAAA
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="price"
 
@@ -33,3 +33,6 @@ Content-Type: image/png
 
 < ../Desktop/mate.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### Send email TO DELETE
+GET  http://localhost:3000/email/plain-text-mail?toemail=avane89@gmail.com

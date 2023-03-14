@@ -5,10 +5,9 @@ import { ConfigModule } from '@nestjs/config';
 import { CarsController } from './cars/cars.controller';
 import { CarsService } from './cars/cars.service';
 import { CarsRepository } from './cars/cars.repository';
-import { MulterModule } from '@nestjs/platform-express';
 import { Cars } from './entities/cars.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { EmailController } from './email.controller';
+import { EmailController } from './email/email.controller';
 
 @Global()
 @Module({
@@ -21,17 +20,9 @@ import { EmailController } from './email.controller';
         host: process.env.SENDGRID_HOST,
         auth: {
           user: process.env.SENDGRID_USER,
-          pass:
-            process.env.SENDGRID_PASS,
+          pass: process.env.SENDGRID_PASS,
         },
       },
-      // template: {
-      //   dir: __dirname + '/templates',
-      //   adapter: new PugAdapter(),
-      //   options: {
-      //     strict: true,
-      //   },
-      // },
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

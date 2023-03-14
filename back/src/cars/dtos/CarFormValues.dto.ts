@@ -2,7 +2,6 @@ import {
   IsString,
   IsNotEmpty,
   MaxLength,
-  IsNumber,
   IsEmail,
   Matches,
 } from 'class-validator';
@@ -44,7 +43,7 @@ export class CarFormValuesDto {
   })
   price: string;
 
-  photo: File;
+  photo?: File;
 
   photo_name?: string;
 }
