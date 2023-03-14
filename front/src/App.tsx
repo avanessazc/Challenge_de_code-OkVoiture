@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
+import EmailConfirm from './pages/EmailConfirm'
 
 function App() {
     return (
@@ -16,6 +17,9 @@ function App() {
                     <Switch>
                         <Route exact path='/'>
                             <Home />
+                        </Route>
+                        <Route path='/email-confimation/:status'>
+                            <EmailConfirm />
                         </Route>
                         <Route path='*'>
                             <NotFound />

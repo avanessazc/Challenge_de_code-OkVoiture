@@ -31,21 +31,22 @@ export class CarsService {
 
   createToken(car: CarFormValuesDto): string {
     return this.jwtService.sign(car, {
-      secret: process.env.EMAIL_SECRET || 'TOP_SECRET',
-      expiresIn: parseInt(process.env.EXPIRE_TIME_EMAIL_SECRET) || 60,
+      secret: process.env.EMAIL_SECRET,
+      expiresIn: parseInt(process.env.EXPIRE_TIME_EMAIL_SECRET),
     });
   }
 
-  verifyToken(token: string): CarFormValuesDto | never {
+  verifyToken(token: string): CarFormValuesDto | null {
     try {
       const { iat, exp, ...car } = this.jwtService.verify(token, {
-        secret: process.env.EMAIL_SECRET || 'TOP_SECRET',
+        secret: process.env.EMAIL_SECRET,
       });
       return car;
     } catch (error) {
       console.log('Error while verifying Token: ', error.message);
-      throw new BadRequestException(error.message);
+      // throw new BadRequestException(error.message);
     }
+    return null;
   }
 
   sendConfirmationEmail(toemail: string, token: string): void {
@@ -78,7 +79,7 @@ export class CarsService {
         throw new ConflictException('Car ' + dataBaseErrors[1].message);
       } else {
         console.log(error.code);
-        console.log(error);
+        console.log(error.message);
         throw new InternalServerErrorException();
       }
     }

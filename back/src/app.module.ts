@@ -7,7 +7,6 @@ import { CarsService } from './cars/cars.service';
 import { CarsRepository } from './cars/cars.repository';
 import { Cars } from './entities/cars.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { EmailController } from './email/email.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtService } from '@nestjs/jwt';
 
@@ -37,14 +36,14 @@ import { JwtService } from '@nestjs/jwt';
       entities: [Cars],
     }),
     JwtModule.register({
-      secret: process.env.EMAIL_SECRET || 'TOP_SECRET',
+      secret: process.env.EMAIL_SECRET,
       signOptions: {
-        expiresIn: parseInt(process.env.EXPIRE_TIME_EMAIL_SECRET) || 60,
+        expiresIn: parseInt(process.env.EXPIRE_TIME_EMAIL_SECRET),
       },
     }),
     CarsModule,
   ],
-  controllers: [CarsController, EmailController],
+  controllers: [CarsController],
   providers: [CarsService, CarsRepository, JwtService],
 })
 export class AppModule {}

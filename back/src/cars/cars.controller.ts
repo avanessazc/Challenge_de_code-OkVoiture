@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   BadRequestException,
   ConflictException,
+  HttpStatus,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
@@ -48,10 +49,24 @@ export class CarsController {
     console.log(photo);
   }
 
+  @Redirect()
   @Get('email-confirmation/:token')
-  @Redirect('http://localhost:8080', 302)
-  async createNewCar(@Param('token') token: string): Promise<CarFormValuesDto> {
-    const car: CarFormValuesDto = this.carsService.verifyToken(token);
-    return this.carsService.createNewCar(car);
+  async createNewCar(
+    @Param('token') token: string,
+  ): Promise<{ statusCode: number; url: string }> {
+    const car: CarFormValuesDto | null = this.carsService.verifyToken(token);
+    let url = '';
+    if (car == null) {
+      url = 'http://localhost:8080/email-confimation/failed';
+      return { statusCode: HttpStatus.FOUND, url };
+    }
+    const ret = await this.carsService.checkIfCarExist(car);
+    if (ret) {
+      url = 'http://localhost:8080/email-confimation/failed';
+      return { statusCode: HttpStatus.FOUND, url };
+    }
+    this.carsService.createNewCar(car);
+    url = 'http://localhost:8080/email-confimation/successful';
+    return { statusCode: HttpStatus.FOUND, url };
   }
 }

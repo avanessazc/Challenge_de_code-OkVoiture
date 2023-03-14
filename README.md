@@ -1,4 +1,4 @@
-# Challenge de code - OkVoiture v1.2 - Test technique
+# Challenge de code - OkVoiture - Test technique
 
 OkVoiture application with stack:
 - Typescript
