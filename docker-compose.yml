@@ -56,6 +56,20 @@ services:
     ports:
       - "3000:3000"
     container_name: nestjs_c
+    env_file:
+      - .env
+    # environment:
+    #   - POSTGRES_HOST=${POSTGRES_HOST}
+    #   - POSTGRES_PORT=${POSTGRES_PORT}
+    #   - POSTGRES_USER='${POSTGRES_USER}
+    #   - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    #   - POSTGRES_DB=${POSTGRES_DB}
+    #   - SENDGRID_HOST=${SENDGRID_HOST}
+    #   - SENDGRID_USER=${SENDGRID_USER}
+    #   - SENDGRID_PASS=${SENDGRID_PASS}
+    #   - FROM_EMAIL=${FROM_EMAIL}
+    #   - EMAIL_SECRET=${EMAIL_SECRET}
+    #   - EXPIRE_TIME_EMAIL_SECRET=${EXPIRE_TIME_EMAIL_SECRET}
     volumes:
       - type: bind
         source: ./back/src

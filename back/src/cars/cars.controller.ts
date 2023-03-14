@@ -57,16 +57,16 @@ export class CarsController {
     const car: CarFormValuesDto | null = this.carsService.verifyToken(token);
     let url = '';
     if (car == null) {
-      url = 'http://localhost:8080/email-confimation/failed';
+      url = 'http://localhost:8080/email-confirmation/failed';
       return { statusCode: HttpStatus.FOUND, url };
     }
     const ret = await this.carsService.checkIfCarExist(car);
     if (ret) {
-      url = 'http://localhost:8080/email-confimation/failed';
+      url = 'http://localhost:8080/email-confirmation/failed';
       return { statusCode: HttpStatus.FOUND, url };
     }
     this.carsService.createNewCar(car);
-    url = 'http://localhost:8080/email-confimation/successful';
+    url = 'http://localhost:8080/email-confirmation/successful';
     return { statusCode: HttpStatus.FOUND, url };
   }
 }
