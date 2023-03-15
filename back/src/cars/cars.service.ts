@@ -2,14 +2,15 @@ import {
   Injectable,
   ConflictException,
   InternalServerErrorException,
-  BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CarsRepository } from './cars.repository';
 import { CarFormValuesDto } from './dtos';
+import { OwnerFormValuesDto } from '../owners/dtos';
 import { dataBaseErrors } from '../errors';
 import { MailerService } from '@nestjs-modules/mailer';
 import { JwtService } from '@nestjs/jwt';
+import { Cars } from '../entities';
 
 @Injectable()
 export class CarsService {
@@ -29,19 +30,24 @@ export class CarsService {
     });
   }
 
-  createToken(car: CarFormValuesDto): string {
-    return this.jwtService.sign(car, {
-      secret: process.env.EMAIL_SECRET,
-      expiresIn: parseInt(process.env.EXPIRE_TIME_EMAIL_SECRET),
-    });
+  createToken(car: CarFormValuesDto, owner: OwnerFormValuesDto): string {
+    return this.jwtService.sign(
+      { car, owner },
+      {
+        secret: process.env.EMAIL_SECRET,
+        expiresIn: parseInt(process.env.EXPIRE_TIME_EMAIL_SECRET),
+      },
+    );
   }
 
-  verifyToken(token: string): CarFormValuesDto | null {
+  verifyToken(
+    token: string,
+  ): { car: CarFormValuesDto; owner: OwnerFormValuesDto } | null {
     try {
-      const { iat, exp, ...car } = this.jwtService.verify(token, {
+      const { iat, exp, car, owner } = this.jwtService.verify(token, {
         secret: process.env.EMAIL_SECRET,
       });
-      return car;
+      return { car, owner };
     } catch (error) {
       console.log('Error while verifying Token: ', error.message);
       // throw new BadRequestException(error.message);
@@ -68,7 +74,7 @@ export class CarsService {
       });
   }
 
-  async createNewCar(car: CarFormValuesDto): Promise<CarFormValuesDto | never> {
+  async createNewCar(car: Cars): Promise<Cars | never> {
     try {
       const ret = await this.carsRepository.save(car);
       return ret;

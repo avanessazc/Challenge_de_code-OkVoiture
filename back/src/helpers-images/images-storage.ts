@@ -1,8 +1,4 @@
 import { diskStorage } from 'multer';
-// import * as fs from 'fs';
-// import * as fileType from 'file-type';
-
-// type ValidFileExt = 'png' | 'jpg' | 'jpeg';
 type ValidMimeType = 'image/png' | 'image/jpg' | 'image/jpeg';
 
 export const saveImageToStorage = {

@@ -1,23 +1,8 @@
-import {
-  IsString,
-  IsNotEmpty,
-  MaxLength,
-  IsEmail,
-  Matches,
-} from 'class-validator';
+import { IsString, IsNotEmpty, MaxLength, Matches } from 'class-validator';
+import { Owners } from '../../entities';
 
 export class CarFormValuesDto {
   id?: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @MaxLength(30)
-  username: string;
-
-  @IsNotEmpty()
-  @IsEmail()
-  @MaxLength(100)
-  email: string;
 
   @IsNotEmpty()
   @IsString()
@@ -25,25 +10,25 @@ export class CarFormValuesDto {
     message: 'Please enter mark/model/year',
   })
   @MaxLength(30)
-  designation: string;
+  designation?: string;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(50)
-  city: string;
+  city?: string;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(30)
-  numberplate: string;
+  numberplate?: string;
 
   @IsNotEmpty()
   @Matches(/(^[1-9]*)$/, {
     message: 'Price should be a number',
   })
-  price: string;
-
-  photo?: File;
+  price?: string;
 
   photo_name?: string;
+
+  owners?: Owners;
 }

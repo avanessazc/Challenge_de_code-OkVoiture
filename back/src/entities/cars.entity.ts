@@ -1,15 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Owners } from '../entities';
 
 @Entity({ name: 'cars' })
 export class Cars {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({ type: 'varchar', length: 30 })
-  username: string;
-
-  @Column({ type: 'varchar', length: 100 })
-  email: string;
 
   @Column({ type: 'varchar', length: 30 })
   designation: string;
@@ -28,4 +23,7 @@ export class Cars {
 
   @Column({ type: 'date', default: () => 'CURRENT_DATE' })
   create_at: Date;
+
+  @ManyToOne(() => Owners, (owner) => owner.cars)
+  owner: Owners;
 }
