@@ -24,7 +24,6 @@ const CarForm = () => {
     }, [])
     // Send form information to the backend
     const onSubmit = (values: CarFormValues, actions: FormikHelpers<CarFormValues>) => {
-        console.log('values: ', values) // TO DELETE
         axios
             .post('http://localhost:3000/cars', values, {
                 headers: {
@@ -258,6 +257,7 @@ const CarForm = () => {
                             </button>
                         </div>
                     </form>
+                    <div>Please check your email account to finish the Register</div>
                 </div>
             </div>
         </div>

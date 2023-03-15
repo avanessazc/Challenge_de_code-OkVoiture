@@ -4,12 +4,10 @@ import {
   Post,
   Body,
   Param,
-  Redirect,
   UploadedFile,
   UseInterceptors,
   BadRequestException,
   ConflictException,
-  HttpStatus,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
@@ -34,8 +32,6 @@ export class CarsController {
     @Body() info: InfoFormDto,
     @UploadedFile() photo: Express.Multer.File,
   ): Promise<void> {
-    // let car: CarFormValuesDto;
-    // let owner: OwnerFormValuesDto;
     if (photo === undefined) {
       throw new BadRequestException('Photo is missing');
     }
@@ -56,33 +52,21 @@ export class CarsController {
       //DELETE PHOTO
       throw new ConflictException('Car ' + dataBaseErrors[0].message);
     }
-
     const token = this.carsService.createToken(car, owner);
-
     this.carsService.sendConfirmationEmail(info.email, token);
 
     console.log(info);
     console.log(photo);
   }
 
-  @Redirect()
   @Get('email-confirmation/:token')
-  async registerInfoForm(
-    @Param('token') token: string,
-  ): Promise<{ statusCode: number; url: string }> {
-    const info: { car: CarFormValuesDto; owner: OwnerFormValuesDto } | null =
+  async registerInfoForm(@Param('token') token: string): Promise<Cars> {
+    const info: { car: CarFormValuesDto; owner: OwnerFormValuesDto } =
       this.carsService.verifyToken(token);
-    let url = '';
-    if (info == null) {
-      url = 'http://localhost:8080/email-confirmation/failed';
-      return { statusCode: HttpStatus.FOUND, url };
-    }
     const ret = await this.carsService.checkIfCarExist(info.car);
     if (ret) {
-      url = 'http://localhost:8080/email-confirmation/failed';
-      return { statusCode: HttpStatus.FOUND, url };
+      throw new ConflictException('Car ' + dataBaseErrors[0].message);
     }
-
     const newOwner = await this.ownersService.createOwner(info.owner);
     const newCar = new Cars();
     newCar.id = info.car.id;
@@ -92,8 +76,6 @@ export class CarsController {
     newCar.price = info.car.price;
     newCar.photo_name = info.car.photo_name;
     newCar.owner = newOwner;
-    await this.carsService.createNewCar(newCar);
-    url = 'http://localhost:8080/email-confirmation/successful';
-    return { statusCode: HttpStatus.FOUND, url };
+    return await this.carsService.createNewCar(newCar);
   }
 }

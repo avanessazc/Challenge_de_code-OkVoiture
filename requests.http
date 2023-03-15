@@ -1,5 +1,4 @@
 ### Insert a New Cart
-
 POST  http://localhost:3000/cars
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
@@ -22,7 +21,7 @@ Bora-Bora
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="numberplate"
 
-ABCDEFSAAA
+ABCDEFWQ
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="price"
 
@@ -35,4 +34,4 @@ Content-Type: image/png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ### Confirm Email
-GET http://localhost:3000/cars/email-confirmation/:token
+GET http://localhost:3000/cars/email-confirmation/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYXIiOnsiZGVzaWduYXRpb24iOiJtYXJrL21vZGVsLzIwMjEiLCJjaXR5IjoiQm9yYS1Cb3JhIiwibnVtYmVycGxhdGUiOiJBQkNERUZXUSIsInByaWNlIjoiNTYiLCJwaG90b19uYW1lIjoicGhvdG8tMTY3ODg4NzE3OTgwNy0xNDg4MDcwOTMucG5nIn0sIm93bmVyIjp7InVzZXJuYW1lIjoidmFuZXNzYSIsImVtYWlsIjoiYXZhbmU4OUBnbWFpbC5jb20ifSwiaWF0IjoxNjc4ODg3MTc5LCJleHAiOjE2Nzg4ODcyMzl9.dFpyXtdX4TLae7FJvOP7QySc1QVvAQXqQvp37yJsHS0

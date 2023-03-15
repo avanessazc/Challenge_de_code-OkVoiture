@@ -2,6 +2,7 @@ import {
   Injectable,
   ConflictException,
   InternalServerErrorException,
+  BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CarsRepository } from './cars.repository';
@@ -42,7 +43,7 @@ export class CarsService {
 
   verifyToken(
     token: string,
-  ): { car: CarFormValuesDto; owner: OwnerFormValuesDto } | null {
+  ): { car: CarFormValuesDto; owner: OwnerFormValuesDto } | never {
     try {
       const { iat, exp, car, owner } = this.jwtService.verify(token, {
         secret: process.env.EMAIL_SECRET,
@@ -50,21 +51,24 @@ export class CarsService {
       return { car, owner };
     } catch (error) {
       console.log('Error while verifying Token: ', error.message);
-      // throw new BadRequestException(error.message);
+      throw new BadRequestException(error.message);
     }
-    return null;
   }
 
   sendConfirmationEmail(toemail: string, token: string): void {
-    const url = `http://localhost:3000/cars/email-confirmation/${token}`;
+    const url = `http://localhost:8080/email-confirmation/${token}`;
     this.mailService
       .sendMail({
         to: toemail,
         from: process.env.FROM_EMAIL,
         subject: 'Confirm email OkVoiture Challenge',
-        html: ` <h1>Welcome to OKVoiture!</h1>
-                <p>Please click to confirm your email:</p>
-                <a href="${url}">HERE!</a>`,
+        html: `
+        <h3> Hello! </h3>
+        <p>Thank you for registering into our Application. Much Appreciated! Just one last step is laying ahead of you...</p>
+        <p>To finish registering your car, please follow this link: <a href="${url}">Confirm</a></p>
+        <p>Cheers</p>
+        <p>OkVoiture Team</p>
+      `,
       })
       .then(() => {
         console.log('Email sent!');

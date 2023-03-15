@@ -18,7 +18,7 @@ function App() {
                         <Route exact path='/'>
                             <Home />
                         </Route>
-                        <Route path='/email-confirmation/:status'>
+                        <Route path='/email-confirmation/:token'>
                             <EmailConfirm />
                         </Route>
                         <Route path='*'>
