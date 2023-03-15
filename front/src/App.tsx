@@ -4,6 +4,7 @@ import './input.css'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
+import Cars from './pages/Cars'
 import NotFound from './pages/NotFound'
 import EmailConfirm from './pages/EmailConfirm'
 
@@ -12,11 +13,13 @@ function App() {
         <Router>
             <div className=''>
                 <Navbar />
-                <Footer />
                 <div className='content'>
                     <Switch>
                         <Route exact path='/'>
                             <Home />
+                        </Route>
+                        <Route exact path='/cars'>
+                            <Cars />
                         </Route>
                         <Route path='/email-confirmation/:token'>
                             <EmailConfirm />
@@ -26,6 +29,7 @@ function App() {
                         </Route>
                     </Switch>
                 </div>
+                <Footer />
             </div>
         </Router>
     )

@@ -208,7 +208,7 @@ const CarForm = () => {
                         <div className=''>
                             <div className=''>
                                 <label className='block text-gray-700 text-sm font-bold mt-2'>
-                                    Price €:
+                                    Price €/Day:
                                 </label>
                             </div>
                             <div className=''>

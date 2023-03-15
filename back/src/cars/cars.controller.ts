@@ -4,6 +4,7 @@ import {
   Post,
   Body,
   Param,
+  Res,
   UploadedFile,
   UseInterceptors,
   BadRequestException,
@@ -77,5 +78,24 @@ export class CarsController {
     newCar.photo_name = info.car.photo_name;
     newCar.owner = newOwner;
     return await this.carsService.createNewCar(newCar);
+  }
+
+  @Get('list')
+  async getCarsList(): Promise<Cars[]> {
+    return await this.carsService.getCarsLis();
+  }
+
+  // Serving Static Files from NestJS
+  @Get('photos/:name')
+  async servePhoto(@Param('name') name, @Res() res) {
+    try {
+      res.sendFile(name, { root: 'photos' }, (error) => {
+        if (error) {
+          console.log(name, 'Photo file does not exist');
+        }
+      });
+    } catch (error) {
+      console.log('photo_name:', error);
+    }
   }
 }

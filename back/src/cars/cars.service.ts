@@ -94,4 +94,12 @@ export class CarsService {
       }
     }
   }
+
+  async getCarsLis(): Promise<Cars[]> {
+    return await this.carsRepository.find({
+      order: {
+        price: 'ASC',
+      },
+    });
+  }
 }
