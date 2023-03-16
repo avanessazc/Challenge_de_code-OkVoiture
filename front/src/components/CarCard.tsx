@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { Car } from '../types'
+import Modal from './Modal'
 
-type props = {
+type Props = {
     car: Car
 }
-const CarCard = ({ car }: props) => {
+const CarCard = ({ car }: Props) => {
+    const [showModal, setShowModal] = useState<boolean>(false)
     return (
         <div className='p-4 max-w-sm'>
             <div className='flex rounded-lg h-full p-8 flex-col border-2 rounded-3xl'>
@@ -43,9 +46,13 @@ const CarCard = ({ car }: props) => {
                         </div>
                     </div>
                     <div className='flex justify-center'>
-                        <button className='bg-yellow-600 my-4 hover:bg-pink-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline'>
+                        <button
+                            onClick={() => setShowModal(true)}
+                            className='bg-yellow-600 my-4 hover:bg-pink-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline'
+                        >
                             Book
                         </button>
+                        {showModal && <Modal setShowModal={setShowModal} />}
                     </div>
                 </div>
             </div>
