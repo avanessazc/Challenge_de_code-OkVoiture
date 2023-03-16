@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { CarsController } from './cars/cars.controller';
 import { CarsService } from './cars/cars.service';
 import { CarsRepository } from './cars/cars.repository';
-import { Cars, Owners } from './entities';
+import { Cars, Owners, Bookings } from './entities';
 import { OwnersController } from './owners/owners.controller';
 import { OwnersService } from './owners/owners.service';
 import { OwnersModule } from './owners/owners.module';
@@ -37,7 +37,7 @@ import { OwnersRepository } from './owners/owners.repository';
       host: process.env.POSTGRES_HOST,
       database: process.env.POSTGRES_DB,
       synchronize: true,
-      entities: [Cars, Owners],
+      entities: [Cars, Owners, Bookings],
     }),
     JwtModule.register({
       secret: process.env.EMAIL_SECRET,

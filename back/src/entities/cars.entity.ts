@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Owners } from '../entities';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Owners, Bookings } from '../entities';
 
 @Entity({ name: 'cars' })
 export class Cars {
@@ -26,4 +26,7 @@ export class Cars {
 
   @ManyToOne(() => Owners, (owner) => owner.cars)
   owner: Owners;
+
+  @OneToMany(() => Bookings, (bookings) => bookings.car, { cascade: true })
+  bookings: Bookings[];
 }
