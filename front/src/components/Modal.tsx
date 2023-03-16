@@ -28,7 +28,6 @@ const Modal = ({ carId, setShowModal }: Props) => {
                 setError('')
             }, 3000)
         } else {
-            console.log('carId: ', carId)
             axios
                 .post(
                     'http://localhost:3000/bookings',
@@ -43,14 +42,18 @@ const Modal = ({ carId, setShowModal }: Props) => {
                         }
                     }
                 )
-                .then((response) => {
-                    console.log(response.data)
+                .then(() => {
+                    setShowModal(false)
                 })
                 .catch((error) => {
+                    if (axios.isAxiosError(error) && error.response) {
+                        setError(error.response.data.message)
+                        setTimeout(() => {
+                            setError('')
+                        }, 3000)
+                    }
                     console.log('submit error: ', error)
                 })
-
-            setShowModal(false)
         }
     }
     return (

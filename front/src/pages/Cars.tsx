@@ -9,7 +9,6 @@ const Cars = () => {
         axios
             .get('http://localhost:3000/cars/list')
             .then((response) => {
-                console.log(response.data)
                 setCarsList(response.data)
             })
             .catch((error) => {

@@ -10,6 +10,7 @@ import { CarsService } from 'src/cars/cars.service';
 import { Bookings } from 'src/entities';
 import { BookingsService } from './bookings.service';
 import { BookingsFormValuesDto } from './dtos';
+import { format } from 'date-fns';
 
 @Controller('bookings')
 export class BookingsController {
@@ -25,16 +26,15 @@ export class BookingsController {
   ): Promise<Bookings> {
     const car = await this.carsService.findByid(body.carId);
     if (!car) {
-      console.log('AQUIIiiiii');
       throw new BadRequestException('CarId does not exist');
     }
-    const today = new Date();
-    const maxDate = new Date('2030-12-31');
+    const today = format(new Date(), 'yyyy-MM-dd');
+    const maxDate = format(new Date('2030-12-31'), 'yyyy-MM-dd');
     if (
-      new Date(body.selectedStartDate) < today ||
-      new Date(body.selectedStartDate) > maxDate ||
-      new Date(body.selectedEndDate) < today ||
-      new Date(body.selectedEndDate) > maxDate ||
+      new Date(body.selectedStartDate) < new Date(today) ||
+      new Date(body.selectedStartDate) > new Date(maxDate) ||
+      new Date(body.selectedEndDate) < new Date(today) ||
+      new Date(body.selectedEndDate) > new Date(maxDate) ||
       new Date(body.selectedStartDate) > new Date(body.selectedEndDate)
     ) {
       throw new BadRequestException('It is not possible to pick this dates');

@@ -14,11 +14,10 @@ const CarForm = () => {
     useEffect(() => {
         axios
             .get('https://geo.api.gouv.fr/departements/987/communes')
-            .then((res) => {
-                setCities(res.data)
+            .then((response) => {
+                setCities(response.data)
             })
-            .catch((error) => {
-                console.log('GeoApi error: ', error)
+            .catch(() => {
                 setCities([])
             })
     }, [])
@@ -30,8 +29,7 @@ const CarForm = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            .then((response) => {
-                console.log(response.data)
+            .then(() => {
                 // Clear the element that upload the photo
                 if (photoRef.current) {
                     photoRef.current.value = ''

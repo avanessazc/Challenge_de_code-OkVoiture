@@ -23,10 +23,7 @@ export class BookingsService {
   async checkBooking(body: BookingsFormValuesDto): Promise<Bookings> {
     const bookingList = await this.findByCarId(body.carId);
     let check: Bookings = null;
-    console.log('check: ', check);
     if (bookingList) {
-      console.log('AQUI: ', bookingList);
-
       for (let i = 0; i < bookingList.length; i++) {
         if (
           (new Date(body.selectedStartDate) >=

@@ -23,9 +23,7 @@ export class OwnersService {
       }
       return ret;
     } catch (error) {
-      console.log(error.code);
-      console.log(error.message);
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException(error.message);
     }
   }
 }

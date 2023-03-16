@@ -10,8 +10,7 @@ const EmailConfirm = () => {
         setIsSubmitted(true)
         axios
             .get(`http://localhost:3000/cars/email-confirmation/${token}`)
-            .then((response) => {
-                console.log(response.data)
+            .then(() => {
                 setErrorResponseApi('Successful')
             })
             .catch((error) => {

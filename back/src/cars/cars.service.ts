@@ -56,7 +56,6 @@ export class CarsService {
       });
       return { car, owner };
     } catch (error) {
-      console.log('Error while verifying Token: ', error.message);
       throw new BadRequestException(error.message);
     }
   }
@@ -94,9 +93,7 @@ export class CarsService {
       } else if (error.code === dataBaseErrors[1].code) {
         throw new ConflictException('Car ' + dataBaseErrors[1].message);
       } else {
-        console.log(error.code);
-        console.log(error.message);
-        throw new InternalServerErrorException();
+        throw new InternalServerErrorException(error.message);
       }
     }
   }

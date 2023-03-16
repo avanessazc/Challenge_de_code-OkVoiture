@@ -55,9 +55,6 @@ export class CarsController {
     }
     const token = this.carsService.createToken(car, owner);
     this.carsService.sendConfirmationEmail(info.email, token);
-
-    console.log(info);
-    console.log(photo);
   }
 
   @Get('email-confirmation/:token')
