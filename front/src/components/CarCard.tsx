@@ -52,7 +52,7 @@ const CarCard = ({ car }: Props) => {
                         >
                             Book
                         </button>
-                        {showModal && <Modal setShowModal={setShowModal} />}
+                        {showModal && <Modal setShowModal={setShowModal} carId={car.id} />}
                     </div>
                 </div>
             </div>

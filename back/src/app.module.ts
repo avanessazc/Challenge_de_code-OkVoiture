@@ -13,6 +13,10 @@ import { OwnersController } from './owners/owners.controller';
 import { OwnersService } from './owners/owners.service';
 import { OwnersModule } from './owners/owners.module';
 import { OwnersRepository } from './owners/owners.repository';
+import { BookingsController } from './bookings/bookings.controller';
+import { BookingsService } from './bookings/bookings.service';
+import { BookingsModule } from './bookings/bookings.module';
+import { BookingsRepository } from './bookings/bookings.repository';
 
 @Global()
 @Module({
@@ -47,14 +51,17 @@ import { OwnersRepository } from './owners/owners.repository';
     }),
     CarsModule,
     OwnersModule,
+    BookingsModule,
   ],
-  controllers: [CarsController, OwnersController],
+  controllers: [CarsController, OwnersController, BookingsController],
   providers: [
     CarsService,
     CarsRepository,
     JwtService,
     OwnersService,
     OwnersRepository,
+    BookingsService,
+    BookingsRepository,
   ],
 })
 export class AppModule {}

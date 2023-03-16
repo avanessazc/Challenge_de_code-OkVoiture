@@ -21,12 +21,18 @@ export class CarsService {
     private jwtService: JwtService,
   ) {}
 
-  async checkIfCarExist(
-    car: CarFormValuesDto,
-  ): Promise<CarFormValuesDto | null> {
+  async findByNumberplate(numberplate: string): Promise<Cars | null> {
     return await this.carsRepository.findOne({
       where: {
-        numberplate: car.numberplate,
+        numberplate: numberplate,
+      },
+    });
+  }
+
+  async findByid(id: string): Promise<Cars | null> {
+    return await this.carsRepository.findOne({
+      where: {
+        id: id,
       },
     });
   }

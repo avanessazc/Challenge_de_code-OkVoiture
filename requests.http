@@ -38,3 +38,13 @@ GET http://localhost:3000/cars/email-confirmation/eyJhbGciOiJIUzI1NiIsInR5cCI6Ik
 
 ### Get cars list
 GET  http://localhost:3000/cars/list
+
+### Boooking
+POST  http://localhost:3000/bookings
+Content-Type: application/json
+
+{
+    "carId": "a799d5f7-5bcf-4cf3-ad82-5debe160d682",
+    "selectedStartDate": "Thu May 07 2023",
+    "selectedEndDate": "Thu May 07 2023"
+}

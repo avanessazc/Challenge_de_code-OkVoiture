@@ -48,7 +48,7 @@ export class CarsController {
       price: info.price,
       photo_name: photo.filename,
     };
-    const ret = await this.carsService.checkIfCarExist(info);
+    const ret = await this.carsService.findByNumberplate(info.numberplate);
     if (ret) {
       //DELETE PHOTO
       throw new ConflictException('Car ' + dataBaseErrors[0].message);
@@ -64,7 +64,7 @@ export class CarsController {
   async registerInfoForm(@Param('token') token: string): Promise<Cars> {
     const info: { car: CarFormValuesDto; owner: OwnerFormValuesDto } =
       this.carsService.verifyToken(token);
-    const ret = await this.carsService.checkIfCarExist(info.car);
+    const ret = await this.carsService.findByNumberplate(info.car.numberplate);
     if (ret) {
       throw new ConflictException('Car ' + dataBaseErrors[0].message);
     }

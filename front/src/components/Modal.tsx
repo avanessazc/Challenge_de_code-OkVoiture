@@ -1,10 +1,12 @@
 import { useState, ChangeEvent } from 'react'
 import { format } from 'date-fns'
+import axios from 'axios'
 
 type Props = {
+    carId: string
     setShowModal: (open: boolean) => void
 }
-const Modal = ({ setShowModal }: Props) => {
+const Modal = ({ carId, setShowModal }: Props) => {
     const today = format(new Date(), 'yyyy-MM-dd')
     const maxDate = format(new Date('2030-12-31'), 'yyyy-MM-dd')
     const [startDate, setStartDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'))
@@ -26,6 +28,28 @@ const Modal = ({ setShowModal }: Props) => {
                 setError('')
             }, 3000)
         } else {
+            console.log('carId: ', carId)
+            axios
+                .post(
+                    'http://localhost:3000/bookings',
+                    {
+                        carId,
+                        selectedStartDate,
+                        selectedEndDate
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                )
+                .then((response) => {
+                    console.log(response.data)
+                })
+                .catch((error) => {
+                    console.log('submit error: ', error)
+                })
+
             setShowModal(false)
         }
     }

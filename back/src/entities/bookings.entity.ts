@@ -6,10 +6,10 @@ export class Bookings {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'date'})
+  @Column({ type: 'date' })
   start_date: Date;
 
-  @Column({ type: 'date'})
+  @Column({ type: 'date' })
   end_date: Date;
 
   @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
