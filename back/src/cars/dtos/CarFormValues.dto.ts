@@ -26,7 +26,7 @@ export class CarFormValuesDto {
   @Matches(/(^[1-9]*)$/, {
     message: 'Price should be a number',
   })
-  price?: string;
+  price?: number;
 
   photo_name?: string;
 

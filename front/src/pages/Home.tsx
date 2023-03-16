@@ -1,7 +1,11 @@
 import CarForm from '../components/CarForm'
 
 const Home = () => {
-    return <CarForm />
+    return (
+        <div className=''>
+            <CarForm />
+        </div>
+    )
 }
 
 export default Home

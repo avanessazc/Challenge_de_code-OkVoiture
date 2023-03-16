@@ -15,8 +15,8 @@ export class Cars {
   @Column({ type: 'varchar', length: 30, unique: true })
   numberplate: string;
 
-  @Column({ type: 'varchar', length: 5 })
-  price: string;
+  @Column({ type: 'integer' })
+  price: number;
 
   @Column('varchar', { length: 100 })
   photo_name: string;

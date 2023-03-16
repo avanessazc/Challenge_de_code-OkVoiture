@@ -1,5 +1,4 @@
 import { useState, ChangeEvent, useRef, useEffect } from 'react'
-// import { useHistory } from 'react-router-dom'
 import { useFormik, FormikHelpers } from 'formik'
 import { schema } from '../rules'
 import axios from 'axios'
@@ -10,6 +9,7 @@ const CarForm = () => {
     const photoRef = useRef<HTMLInputElement | null>(null)
     const [cities, setCities] = useState<CityInfo[]>([])
     const [errorResponseApi, setErrorResponseApi] = useState<string>('')
+    const [checkEmailMessage, setCheckEmailMessage] = useState<boolean>(false)
     // Get cities information from GEO API
     useEffect(() => {
         axios
@@ -32,6 +32,15 @@ const CarForm = () => {
             })
             .then((response) => {
                 console.log(response.data)
+                // Clear the element that upload the photo
+                if (photoRef.current) {
+                    photoRef.current.value = ''
+                }
+                actions.resetForm()
+                setCheckEmailMessage(true)
+                setTimeout(() => {
+                    setCheckEmailMessage(false)
+                }, 5000)
             })
             .catch((error) => {
                 if (
@@ -46,11 +55,6 @@ const CarForm = () => {
                 }
                 console.log('submit error: ', error)
             })
-        // Clear the element that upload the photo
-        if (photoRef.current) {
-            photoRef.current.value = ''
-        }
-        actions.resetForm()
     }
 
     const initValues: CarFormValues = {
@@ -63,12 +67,11 @@ const CarForm = () => {
         photo: {} as File
     }
     // Formik validate the field before submit them
-    const { values, errors, touched, isSubmitting, handleChange, handleSubmit, setFieldValue } =
-        useFormik({
-            initialValues: initValues,
-            validationSchema: schema,
-            onSubmit
-        })
+    const { values, errors, touched, handleChange, handleSubmit, setFieldValue } = useFormik({
+        initialValues: initValues,
+        validationSchema: schema,
+        onSubmit
+    })
 
     const onFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
@@ -76,8 +79,8 @@ const CarForm = () => {
         }
     }
     return (
-        <div className='constainer my-5'>
-            <div className='grid'>
+        <div className='flex justify-center items-center my-5'>
+            <div className=''>
                 <div className='flex flex-col items-center'>
                     <h1 className='text-4xl text-gray-700'>Voiture</h1>
                     <form onSubmit={handleSubmit} className=''>
@@ -249,15 +252,18 @@ const CarForm = () => {
                         </div>
                         <div className='flex justify-center'>
                             <button
-                                disabled={isSubmitting}
                                 className='bg-yellow-600 my-4 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
                                 type='submit'
                             >
                                 Register
                             </button>
                         </div>
+                        {checkEmailMessage && (
+                            <div className='rounded text-fuchsia-800 text-sm'>
+                                Please check your email account to finish registering your car
+                            </div>
+                        )}
                     </form>
-                    <div>Please check your email account to finish the Register</div>
                 </div>
             </div>
         </div>
