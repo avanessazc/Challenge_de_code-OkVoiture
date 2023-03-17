@@ -12,6 +12,7 @@ const Modal = ({ carId, setShowModal }: Props) => {
     const [startDate, setStartDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'))
     const [endDate, setEndDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'))
     const [error, setError] = useState<string>('')
+    const [confimationMsg, setConfimationMsg] = useState<string>('')
     const handleSubmit = () => {
         const selectedStartDate = new Date(startDate)
         const selectedEndDate = new Date(endDate)
@@ -43,7 +44,8 @@ const Modal = ({ carId, setShowModal }: Props) => {
                     }
                 )
                 .then(() => {
-                    setShowModal(false)
+                    setConfimationMsg('Booking has been successfully!')
+                    // setShowModal(false)
                 })
                 .catch((error) => {
                     if (axios.isAxiosError(error) && error.response) {
@@ -68,7 +70,8 @@ const Modal = ({ carId, setShowModal }: Props) => {
                         </div>
                         {/* body */}
                         <div>
-                            <div className='relative p-6 flex-auto'>
+                            {confimationMsg != '' && <span className='text-teal-700 text-sm px-4'>{confimationMsg}</span>}
+                            {confimationMsg == '' && <div className='relative p-6 flex-auto'>
                                 <div className='mb-3'>
                                     <label className='text-gray-700 text-sm font-bold mt-2 mr-3'>
                                         Start Date:
@@ -84,7 +87,6 @@ const Modal = ({ carId, setShowModal }: Props) => {
                                         }
                                     ></input>
                                 </div>
-
                                 <div>
                                     <label className='text-gray-700 text-sm font-bold mt-2 mr-3'>
                                         End Date:
@@ -103,7 +105,7 @@ const Modal = ({ carId, setShowModal }: Props) => {
                                 {error != '' && (
                                     <span className='text-pink-500 text-sm'>{error}</span>
                                 )}
-                            </div>
+                            </div>}
                         </div>
                         {/* footer */}
                         <div className='flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b'>
@@ -114,13 +116,13 @@ const Modal = ({ carId, setShowModal }: Props) => {
                             >
                                 Close
                             </button>
-                            <button
+                            {confimationMsg == '' && <button
                                 className='bg-yellow-600 my-4 hover:bg-pink-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline'
                                 type='button'
                                 onClick={handleSubmit}
                             >
                                 Save Changes
-                            </button>
+                            </button>}
                         </div>
                     </div>
                 </div>
