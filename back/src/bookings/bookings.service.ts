@@ -53,14 +53,13 @@ export class BookingsService {
   async findAllBookings(): Promise<BookingsListDto[]> {
     return await this.bookingsRepository.query(
       `SELECT "bookings"."id",
-                  "bookings"."start_date",
-                  "bookings"."end_date",
+                  to_char("bookings"."start_date",'dd/mm/yyyy') as start_date,
+		              to_char("bookings"."end_date",'dd/mm/yyyy') as end_date,
                   "bookings"."create_at",
                   "bookings"."carId",
                   "cars"."designation",
                   "cars"."city",
                   "cars"."numberplate",
-                  "owners"."id",
                   "owners"."username",
                   "owners"."email"
           FROM bookings

@@ -1,8 +1,8 @@
 export class BookingsListDto {
   id: string;
-  start_date: Date;
-  end_date: Date;
-  create_at: Date;
+  start_date: string;
+  end_date: string;
+  create_at: string;
   carId: string;
   designation: string;
   city: string;

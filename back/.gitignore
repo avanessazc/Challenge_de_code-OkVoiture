@@ -34,3 +34,8 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Photos
+/photos/*.jpg
+/photos/*.jpeg
+/photos/*.png
