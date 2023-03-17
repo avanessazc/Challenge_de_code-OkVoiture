@@ -34,8 +34,7 @@ Content-Type: image/png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ### Confirm Email
-GET http://localhost:3000/cars/email-confirmation/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYXIiOnsiZGVzaWduYXRpb24iOiJtYXJrL21vZGVsLzIwMjEiLCJjaXR5IjoiQm9yYS1Cb3JhIiwibnVtYmVycGxhdGUiOiJBQkNERUZXUSIsInByaWNlIjoiNTYiLCJwaG90b19uYW1lIjoicGhvdG8tMTY3ODg4NzE3OTgwNy0xNDg4MDcwOTMucG5nIn0sIm93bmVyIjp7InVzZXJuYW1lIjoidmFuZXNzYSIsImVtYWlsIjoiYXZhbmU4OUBnbWFpbC5jb20ifSwiaWF0IjoxNjc4ODg3MTc5LCJleHAiOjE2Nzg4ODcyMzl9.dFpyXtdX4TLae7FJvOP7QySc1QVvAQXqQvp37yJsHS0
-
+GET http://localhost:3000/cars/email-confirmation/:token
 ### Get cars list
 GET  http://localhost:3000/cars/list
 

@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Cars from './pages/Cars'
 import NotFound from './pages/NotFound'
 import EmailConfirm from './pages/EmailConfirm'
+import Bookings from './pages/Bookings'
 
 function App() {
     return (
@@ -18,8 +19,11 @@ function App() {
                         <Route exact path='/'>
                             <Home />
                         </Route>
-                        <Route exact path='/cars'>
+                        <Route path='/cars'>
                             <Cars />
+                        </Route>
+                        <Route path='/bookings'>
+                            <Bookings />
                         </Route>
                         <Route path='/email-confirmation/:token'>
                             <EmailConfirm />

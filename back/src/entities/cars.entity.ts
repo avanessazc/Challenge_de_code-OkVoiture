@@ -27,7 +27,7 @@ export class Cars {
   @Column('varchar', { length: 100 })
   photo_name: string;
 
-  @Column({ type: 'date', default: () => 'CURRENT_DATE' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   create_at: Date;
 
   @ManyToOne(() => Owners, (owner) => owner.cars)
