@@ -4,7 +4,9 @@ import {
   MaxLength,
   IsEmail,
   Matches,
+  IsNumber,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class InfoFormDto {
   id?: string;
@@ -38,9 +40,8 @@ export class InfoFormDto {
   numberplate: string;
 
   @IsNotEmpty()
-  @Matches(/(^[1-9]*)$/, {
-    message: 'Price should be a number',
-  })
+  @Type(() => Number)
+  @IsNumber()
   price: number;
 
   photo?: File;
