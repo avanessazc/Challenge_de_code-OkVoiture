@@ -23,7 +23,7 @@ const CarCard = ({ car }: Props) => {
                 </div>
                 <div>
                     <div className='flex justify-center'>
-                        <div className='block text-gray-700 text-sm font-bold mt-2'>
+                        <div className='block text-gray-700 text-sm font-bold mt-2 uppercase'>
                             {car.designation}
                         </div>
                     </div>
