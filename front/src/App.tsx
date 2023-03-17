@@ -12,9 +12,9 @@ import Bookings from './pages/Bookings'
 function App() {
     return (
         <Router>
-            <div className=''>
+            <div className='flex flex-col h-screen'>
                 <Navbar />
-                <div className='content'>
+                <div className='content flex-grow'>
                     <Switch>
                         <Route exact path='/'>
                             <Home />

@@ -80,7 +80,7 @@ const CarForm = () => {
         <div className='flex justify-center items-center my-5'>
             <div className=''>
                 <div className='flex flex-col items-center'>
-                    <h1 className='text-4xl text-gray-700'>Voiture</h1>
+                    <h1 className='text-4xl text-gray-700'>Register</h1>
                     <form onSubmit={handleSubmit} className=''>
                         <div className=''>
                             <div className=''>
@@ -92,7 +92,7 @@ const CarForm = () => {
                                 <input
                                     type='text'
                                     name='username'
-                                    placeholder='Username'
+                                    placeholder='Name'
                                     value={values.username}
                                     className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                                     required
@@ -136,7 +136,7 @@ const CarForm = () => {
                                 <input
                                     type='text'
                                     name='designation'
-                                    placeholder='mark/model/year'
+                                    placeholder='Mark/Model/Year'
                                     value={values.designation}
                                     className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                                     required
