@@ -25,12 +25,12 @@ const CarBooking = ({ booking }: Props) => {
                 </div>
             </td>
             <td className='px-2'>
-                <div className='rounded-xl py-2 bg-slate-100'>
+                <div className='rounded-xl py-2 bg-slate-100 uppercase'>
                     <div className='text-center px-2'>{booking.designation}</div>
                 </div>
             </td>
             <td className='px-2'>
-                <div className='rounded-xl py-2 bg-slate-100'>
+                <div className='rounded-xl py-2 bg-slate-100 uppercase'>
                     <div className='text-center px-2'>{booking.numberplate}</div>
                 </div>
             </td>
