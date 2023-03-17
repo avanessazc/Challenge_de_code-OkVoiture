@@ -14,7 +14,7 @@ function App() {
         <Router>
             <div className='flex flex-col h-screen'>
                 <Navbar />
-                <div className='content flex-grow'>
+                <div className='content flex-grow overflow-y-auto h-32'>
                     <Switch>
                         <Route exact path='/'>
                             <Home />

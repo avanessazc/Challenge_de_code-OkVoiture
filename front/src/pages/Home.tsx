@@ -2,7 +2,7 @@ import CarForm from '../components/CarForm'
 
 const Home = () => {
     return (
-        <div className=''>
+        <div className='mt-4 mb-12'>
             <CarForm />
         </div>
     )
