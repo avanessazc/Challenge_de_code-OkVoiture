@@ -2,7 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Bookings, Cars } from '../entities';
 import { BookingsRepository } from './bookings.repository';
-import { BookingsFormValuesDto } from './dtos';
+import { BookingsFormValuesDto, BookingsListDto } from './dtos';
 
 @Injectable()
 export class BookingsService {
@@ -48,5 +48,27 @@ export class BookingsService {
     newBooking.end_date = end;
     newBooking.car = car;
     return await this.bookingsRepository.save(newBooking);
+  }
+
+  async findAllBookings(): Promise<BookingsListDto[]> {
+    return await this.bookingsRepository.query(
+      `SELECT "bookings"."id",
+                  "bookings"."start_date",
+                  "bookings"."end_date",
+                  "bookings"."create_at",
+                  "bookings"."carId",
+                  "cars"."designation",
+                  "cars"."city",
+                  "cars"."numberplate",
+                  "owners"."id",
+                  "owners"."username",
+                  "owners"."email"
+          FROM bookings
+          INNER JOIN cars ON bookings."carId" = cars."id"
+          INNER JOIN owners ON cars."ownerId" = owners."id"
+          ORDER BY "owners"."email" ASC,
+                    "bookings"."carId" ASC,
+                    "bookings"."start_date" ASC`,
+    );
   }
 }

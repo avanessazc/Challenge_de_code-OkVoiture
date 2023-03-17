@@ -35,6 +35,7 @@ Content-Type: image/png
 
 ### Confirm Email
 GET http://localhost:3000/cars/email-confirmation/:token
+
 ### Get cars list
 GET  http://localhost:3000/cars/list
 
@@ -47,3 +48,6 @@ Content-Type: application/json
     "selectedStartDate": "Thu May 07 2023",
     "selectedEndDate": "Thu May 07 2023"
 }
+
+### Get bookings list
+GET  http://localhost:3000/bookings/list

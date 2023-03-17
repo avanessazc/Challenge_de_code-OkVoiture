@@ -9,7 +9,7 @@ import {
 import { CarsService } from 'src/cars/cars.service';
 import { Bookings } from 'src/entities';
 import { BookingsService } from './bookings.service';
-import { BookingsFormValuesDto } from './dtos';
+import { BookingsFormValuesDto, BookingsListDto } from './dtos';
 import { format } from 'date-fns';
 
 @Controller('bookings')
@@ -50,6 +50,8 @@ export class BookingsController {
     );
   }
 
-  @Get()
-  async getAllBookings() {}
+  @Get('list')
+  async getAllBookings(): Promise<BookingsListDto[]> {
+    return await this.bookingsService.findAllBookings();
+  }
 }
