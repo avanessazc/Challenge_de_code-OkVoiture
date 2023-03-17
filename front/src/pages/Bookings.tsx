@@ -26,7 +26,7 @@ const Bookings = () => {
                         <tr>
                             {headers.length != 0 &&
                                 headers.map((header: string) => (
-                                    <th className='uppercase text-gray-700' key={header}>
+                                    <th className='uppercase text-gray-700 px-4' key={header}>
                                         {header}
                                     </th>
                                 ))}

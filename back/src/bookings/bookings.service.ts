@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Bookings, Cars } from '../entities';
 import { BookingsRepository } from './bookings.repository';
@@ -72,8 +72,13 @@ export class BookingsService {
   }
 
   async deleteBooking(id: string): Promise<Bookings[]> {
-    return await this.bookingsRepository.query(
-      `DELETE FROM bookings WHERE bookings."id" = ${id}`,
-    );
+    try {
+      const ret = await this.bookingsRepository.query(
+        `DELETE FROM bookings WHERE bookings."id" = ${id}`,
+      );
+      return ret;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 }

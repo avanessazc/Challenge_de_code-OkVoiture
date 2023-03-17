@@ -58,12 +58,7 @@ export class BookingsController {
   }
 
   @Delete('delete/:booking_id')
-  async deleteBooking(
-    @Param('booking_id') booking_id: string,
-  ) {
-    console.log('booking_id: ', booking_id)
-    const ret = await this.bookingsService.deleteBooking(booking_id);
-    console.log('ret: ', ret)
-    return ret
+  async deleteBooking(@Param('booking_id') booking_id: string) {
+    return await this.bookingsService.deleteBooking(booking_id);
   }
 }
