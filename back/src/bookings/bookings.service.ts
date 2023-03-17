@@ -70,4 +70,10 @@ export class BookingsService {
                     "bookings"."start_date" ASC`,
     );
   }
+
+  async deleteBooking(id: string): Promise<Bookings[]> {
+    return await this.bookingsRepository.query(
+      `DELETE FROM bookings WHERE bookings."id" = ${id}`,
+    );
+  }
 }

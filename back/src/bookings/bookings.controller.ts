@@ -2,6 +2,8 @@ import {
   Controller,
   Get,
   Post,
+  Delete,
+  Param,
   Body,
   BadRequestException,
   ConflictException,
@@ -53,5 +55,15 @@ export class BookingsController {
   @Get('list')
   async getAllBookings(): Promise<BookingsListDto[]> {
     return await this.bookingsService.findAllBookings();
+  }
+
+  @Delete('delete/:booking_id')
+  async deleteBooking(
+    @Param('booking_id') booking_id: string,
+  ) {
+    console.log('booking_id: ', booking_id)
+    const ret = await this.bookingsService.deleteBooking(booking_id);
+    console.log('ret: ', ret)
+    return ret
   }
 }
