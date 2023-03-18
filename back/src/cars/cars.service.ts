@@ -68,7 +68,7 @@ export class CarsService {
         from: process.env.FROM_EMAIL,
         subject: 'Confirm email OkVoiture Challenge',
         html: `
-        <h3> Hello! </h3>
+        <h3> Hello!</h3>
         <p>Thank you for registering into our Application. Much Appreciated! Just one last step is laying ahead of you...</p>
         <p>To finish registering your car, please follow this link: <a href="${url}">Confirm</a></p>
         <p>Cheers</p>

@@ -11,9 +11,7 @@ const Cars = () => {
             .then((response) => {
                 setCarsList(response.data)
             })
-            .catch((error) => {
-                console.log('submit error: ', error)
-            })
+            .catch(() => {})
     }, [])
     return (
         <div className='mt-4 mb-12'>

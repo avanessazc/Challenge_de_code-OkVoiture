@@ -13,9 +13,7 @@ const CarBooking = ({ booking }: Props) => {
             .then(() => {
                 setDeleted('Deleted')
             })
-            .catch((error) => {
-                console.log('submit error: ', error)
-            })
+            .catch(() => {})
     }
     return (
         <>

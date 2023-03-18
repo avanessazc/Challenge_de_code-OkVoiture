@@ -9,6 +9,5 @@ COPY package*.json ./
 
 RUN npm install
 
-# COPY .env ./
 COPY tsconfig.json ./
 COPY . .

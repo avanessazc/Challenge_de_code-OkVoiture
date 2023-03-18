@@ -23,7 +23,6 @@ const EmailConfirm = () => {
                         setErrorResponseApi('Failed')
                     }
                 }
-                console.log('submit error: ', error)
             })
     }
     return (

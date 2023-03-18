@@ -45,7 +45,6 @@ const Modal = ({ carId, setShowModal }: Props) => {
                 )
                 .then(() => {
                     setConfimationMsg('Booking has been successfully!')
-                    // setShowModal(false)
                 })
                 .catch((error) => {
                     if (axios.isAxiosError(error) && error.response) {
@@ -54,7 +53,6 @@ const Modal = ({ carId, setShowModal }: Props) => {
                             setError('')
                         }, 3000)
                     }
-                    console.log('submit error: ', error)
                 })
         }
     }

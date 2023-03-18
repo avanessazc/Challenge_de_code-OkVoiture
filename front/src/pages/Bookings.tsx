@@ -5,16 +5,14 @@ import { Booking } from '../types'
 
 const Bookings = () => {
     const [bookingsList, setBookingsList] = useState<Booking[]>([])
-    const headers: string[] = ['Email', 'Designation', 'Numberplate', 'start', 'end', 'Actions']
+    const headers: string[] = ['Email', 'Designation', 'Numberplate', 'Start', 'End', 'Actions']
     useEffect(() => {
         axios
             .get('http://localhost:3000/bookings/list')
             .then((response) => {
                 setBookingsList(response.data)
             })
-            .catch((error) => {
-                console.log('submit error: ', error)
-            })
+            .catch(() => {})
     }, [])
 
     return (

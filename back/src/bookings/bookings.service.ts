@@ -20,7 +20,7 @@ export class BookingsService {
     });
   }
 
-  async checkBooking(body: BookingsFormValuesDto): Promise<Bookings> {
+  async checkBooking(body: BookingsFormValuesDto): Promise<Bookings | null> {
     const bookingList = await this.findByCarId(body.carId);
     let check: Bookings = null;
     if (bookingList) {

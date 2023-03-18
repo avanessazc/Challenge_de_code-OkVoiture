@@ -50,7 +50,6 @@ export class CarsController {
     };
     const ret = await this.carsService.findByNumberplate(info.numberplate);
     if (ret) {
-      //DELETE PHOTO
       throw new ConflictException('Car ' + dataBaseErrors[0].message);
     }
     const token = this.carsService.createToken(car, owner);
