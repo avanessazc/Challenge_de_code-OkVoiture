@@ -9,7 +9,7 @@ vanessa
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="email"
 
-avane89@gmail.com
+email@email.com
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="designation"
 
@@ -17,24 +17,24 @@ mark/model/2021
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="city"
 
-Bora-Bora
+Bora-Boras
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="numberplate"
 
-ABCDEAQSWQQ
+ABCDEAQ
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="price"
 
 256
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="photo"; filename="cars2.jpeg"
+Content-Disposition: form-data; name="photo"; filename="mate.jpeg"
 Content-Type: image/png
 
-< ../Desktop/cars2.jpeg
+< ../Desktop/mate.jpeg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ### Confirm Email
-GET http://localhost:3000/cars/email-confirmation/:token
+GET http://localhost:3000/cars/email-confirmation/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYXIiOnsiZGVzaWduYXRpb24iOiJtYXJrL21vZGVsLzIwMjEiLCJjaXR5IjoiQm9yYS1Cb3JhIiwibnVtYmVycGxhdGUiOiJBQkNERUFRU1dRUSIsInByaWNlIjoiMjU2IiwicGhvdG9fbmFtZSI6InBob3RvLTE2NzkxNDQ4NzcyNTAtOTk4NjM2MDgxLnBuZyJ9LCJvd25lciI6eyJ1c2VybmFtZSI6InZhbmVzc2EiLCJlbWFpbCI6ImF2YW5lODlAZ21haWwuY29tIn0sImlhdCI6MTY3OTE0NDg3NywiZXhwIjoxNjc5MTQ1MDU3fQ.yxXVEFSm6pd8_g0KTstAl0_wyKFFQHVcYTqW7cDSGDA
 
 ### Get cars list
 GET  http://localhost:3000/cars/list

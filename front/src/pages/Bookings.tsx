@@ -12,7 +12,7 @@ const Bookings = () => {
             .then((response) => {
                 setBookingsList(response.data)
             })
-            .catch(() => {})
+            .catch()
     }, [])
 
     return (

@@ -38,7 +38,7 @@ const CarForm = () => {
                 setCheckEmailMessage(true)
                 setTimeout(() => {
                     setCheckEmailMessage(false)
-                }, 5000)
+                }, 7000)
             })
             .catch((error) => {
                 if (
@@ -51,7 +51,6 @@ const CarForm = () => {
                         setErrorResponseApi('')
                     }, 3000)
                 }
-                console.log('submit error: ', error)
             })
     }
 
@@ -248,7 +247,12 @@ const CarForm = () => {
                                 />
                             </div>
                         </div>
-                        <div className='flex justify-center'>
+                        <div className='flex justify-center flex-col'>
+                            {checkEmailMessage && (
+                                <div className='rounded text-teal-600 text-xs pt-3 font-bold'>
+                                    Please check your email account to finish registering your car
+                                </div>
+                            )}
                             <button
                                 className='bg-yellow-600 my-4 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
                                 type='submit'
@@ -256,11 +260,6 @@ const CarForm = () => {
                                 Register
                             </button>
                         </div>
-                        {checkEmailMessage && (
-                            <div className='rounded text-fuchsia-800 text-sm'>
-                                Please check your email account to finish registering your car
-                            </div>
-                        )}
                     </form>
                 </div>
             </div>

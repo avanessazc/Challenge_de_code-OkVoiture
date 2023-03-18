@@ -13,7 +13,7 @@ const CarBooking = ({ booking }: Props) => {
             .then(() => {
                 setDeleted('Deleted')
             })
-            .catch(() => {})
+            .catch()
     }
     return (
         <>

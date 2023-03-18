@@ -11,7 +11,7 @@ const Cars = () => {
             .then((response) => {
                 setCarsList(response.data)
             })
-            .catch(() => {})
+            .catch()
     }, [])
     return (
         <div className='mt-4 mb-12'>
