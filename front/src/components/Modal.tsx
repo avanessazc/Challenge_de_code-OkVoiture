@@ -70,42 +70,46 @@ const Modal = ({ carId, setShowModal }: Props) => {
                         </div>
                         {/* body */}
                         <div>
-                            {confimationMsg != '' && <span className='text-teal-700 text-sm px-4'>{confimationMsg}</span>}
-                            {confimationMsg == '' && <div className='relative p-6 flex-auto'>
-                                <div className='mb-3'>
-                                    <label className='text-gray-700 text-sm font-bold mt-2 mr-3'>
-                                        Start Date:
-                                    </label>
-                                    <input
-                                        type='date'
-                                        name='startdate'
-                                        defaultValue={startDate}
-                                        min={today}
-                                        max={maxDate}
-                                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                            setStartDate(e.target.value)
-                                        }
-                                    ></input>
+                            {confimationMsg != '' && (
+                                <span className='text-teal-700 text-sm px-4'>{confimationMsg}</span>
+                            )}
+                            {confimationMsg == '' && (
+                                <div className='relative p-6 flex-auto'>
+                                    <div className='mb-3'>
+                                        <label className='text-gray-700 text-sm font-bold mt-2 mr-3'>
+                                            Start Date:
+                                        </label>
+                                        <input
+                                            type='date'
+                                            name='startdate'
+                                            defaultValue={startDate}
+                                            min={today}
+                                            max={maxDate}
+                                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                                setStartDate(e.target.value)
+                                            }
+                                        ></input>
+                                    </div>
+                                    <div>
+                                        <label className='text-gray-700 text-sm font-bold mt-2 mr-3'>
+                                            End Date:
+                                        </label>
+                                        <input
+                                            type='date'
+                                            name='enddate'
+                                            defaultValue={endDate}
+                                            min={today}
+                                            max={maxDate}
+                                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                                setEndDate(e.target.value)
+                                            }
+                                        ></input>
+                                    </div>
+                                    {error != '' && (
+                                        <span className='text-pink-500 text-sm'>{error}</span>
+                                    )}
                                 </div>
-                                <div>
-                                    <label className='text-gray-700 text-sm font-bold mt-2 mr-3'>
-                                        End Date:
-                                    </label>
-                                    <input
-                                        type='date'
-                                        name='enddate'
-                                        defaultValue={endDate}
-                                        min={today}
-                                        max={maxDate}
-                                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                            setEndDate(e.target.value)
-                                        }
-                                    ></input>
-                                </div>
-                                {error != '' && (
-                                    <span className='text-pink-500 text-sm'>{error}</span>
-                                )}
-                            </div>}
+                            )}
                         </div>
                         {/* footer */}
                         <div className='flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b'>
@@ -116,13 +120,15 @@ const Modal = ({ carId, setShowModal }: Props) => {
                             >
                                 Close
                             </button>
-                            {confimationMsg == '' && <button
-                                className='bg-yellow-600 my-4 hover:bg-pink-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline'
-                                type='button'
-                                onClick={handleSubmit}
-                            >
-                                Save Changes
-                            </button>}
+                            {confimationMsg == '' && (
+                                <button
+                                    className='bg-yellow-600 my-4 hover:bg-pink-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline'
+                                    type='button'
+                                    onClick={handleSubmit}
+                                >
+                                    Save Changes
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

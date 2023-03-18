@@ -1,11 +1,13 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import { useJwt } from 'react-jwt'
 
 const EmailConfirm = () => {
     const { token } = useParams<{ token: string }>()
     const [errorResponseApi, setErrorResponseApi] = useState<string>('')
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+    const { decodedToken } = useJwt<{ owner: { email: string } }>(token)
     const handleSubmit = () => {
         setIsSubmitted(true)
         axios
@@ -28,7 +30,10 @@ const EmailConfirm = () => {
         <div className='constainer my-5 text-teal-800'>
             <div className='grid'>
                 <div className='flex flex-col items-center'>
-                    <h1 className='text-4xl my-3'>Email confirmation:</h1>
+                    <h1 className='text-2xl my-3'>
+                        Email confirmation:{' '}
+                        <span className='text-xl font-bold'>{decodedToken?.owner.email}</span>
+                    </h1>
                     {!isSubmitted && (
                         <div className='flex justify-center'>
                             <button
