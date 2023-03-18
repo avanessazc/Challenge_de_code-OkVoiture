@@ -46,7 +46,6 @@ services:
         source: ./front/public
         target: /usr/src/app/front/public
     restart: unless-stopped
-    # command: tail -f /dev/null
     command: npm run start
   nestjs:
     build: ./back
@@ -66,7 +65,6 @@ services:
         source: ./back/photos
         target: /usr/src/app/back/photos
     restart: unless-stopped
-    # command: tail -f /dev/null
     command: npm run start:dev
     networks: 
      - internal

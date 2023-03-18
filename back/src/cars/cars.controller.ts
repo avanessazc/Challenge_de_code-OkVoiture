@@ -44,11 +44,11 @@ export class CarsController {
     const car: CarFormValuesDto = {
       designation: info.designation,
       city: info.city,
-      numberplate: info.numberplate,
+      numberplate: info.numberplate.toUpperCase(),
       price: info.price,
       photo_name: photo.filename,
     };
-    const ret = await this.carsService.findByNumberplate(info.numberplate);
+    const ret = await this.carsService.findByNumberplate(car.numberplate);
     if (ret) {
       throw new ConflictException('Car ' + dataBaseErrors[0].message);
     }
