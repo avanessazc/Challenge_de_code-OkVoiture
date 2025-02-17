@@ -4,14 +4,18 @@ import axios from 'axios'
 
 type Props = {
     booking: Booking
+    setBookingsList: (bookings: Booking[]) => void
+    bookingsList: Booking[]
 }
-const CarBooking = ({ booking }: Props) => {
+const CarBooking = ({ booking, setBookingsList, bookingsList }: Props) => {
     const [deleted, setDeleted] = useState<string>('')
+
     const handleSubmit = () => {
         axios
             .delete(`http://localhost:3000/bookings/delete/'${booking.id}'`)
             .then(() => {
                 setDeleted('Deleted')
+                setBookingsList(bookingsList.filter((item: Booking) => item.id !== booking.id))
             })
             .catch()
     }

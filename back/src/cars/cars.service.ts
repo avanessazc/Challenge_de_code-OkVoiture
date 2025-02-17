@@ -61,7 +61,7 @@ export class CarsService {
   }
 
   sendConfirmationEmail(toemail: string, token: string): void {
-    const url = `http://localhost:8080/email-confirmation/${token}`;
+    const url = `http://localhost:8000/email-confirmation/${token}`;
     this.mailService
       .sendMail({
         to: toemail,

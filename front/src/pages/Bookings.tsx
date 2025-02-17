@@ -34,7 +34,11 @@ const Bookings = () => {
                         {bookingsList.length != 0 &&
                             bookingsList.map((booking: Booking) => (
                                 <tr key={booking.id}>
-                                    <CarBooking booking={booking} />
+                                    <CarBooking
+                                        booking={booking}
+                                        setBookingsList={setBookingsList}
+                                        bookingsList={bookingsList}
+                                    />
                                 </tr>
                             ))}
                     </tbody>
